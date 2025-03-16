@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Book Detail</title>
+  <meta charset="UTF-8">
 </head>
 <body>
-    {% load static %} <!-- Slouží pro nahrání statických souborů -->
-    Book Title: {{title}} <br>
-    Genre: {{genre}} <br>
-    Status: {{status}} <br>
-    Image: <br>
-    <img src="{% static 'projectcv/Contract.png' %}" alt="Contract"> <!-- Zde vkládáme obrázek -->
-
+    <h1> {{ book.title }} </h1> <small> {{ book.author }} </small>
+    <h3> {{ book.genre.gener_name }} </h3>
 </body>
 </html>

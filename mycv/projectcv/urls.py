@@ -4,5 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    path("", views.book_detail, name="Book detail"), # je potřeba zmenit jména (detail) souboru podle souborů!
+    path("book_index/", views.BookIndex.as_view(), name="book_index"),
+    path("<int:pk>/book_detail/", views.CurrentBook.as_view(), name="book_detail"),
+    path("add_book/", views.AddBook.as_view(), name="add_book"),
 ]
