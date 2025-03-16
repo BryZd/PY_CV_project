@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ProjectCV</title>
+    <title>Book Detail</title>
 </head>
 <body>
     {% load static %} <!-- Slouží pro nahrání statických souborů -->
-    Název souboru: {{nazev_souboru}} <br>
-    Kategorie: {{kategorie}} <br>
-    Stav: {{stav}} <br>
-    Obrázek: <br>
+    Book Title: {{title}} <br>
+    Genre: {{genre}} <br>
+    Status: {{status}} <br>
+    Image: <br>
     <img src="{% static 'projectcv/Contract.png' %}" alt="Contract"> <!-- Zde vkládáme obrázek -->
 
 </body>
