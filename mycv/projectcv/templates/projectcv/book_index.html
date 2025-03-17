@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
+
+{% extends "base.html" %}
+{% block content %}
     {% for book in books %}
-    <a href="{% url 'book_detail' book.id %}"> Title: {{ book.title }} <br> </a>
+    <a href="{% url 'book_detail' book.id %}"> Title: {{ book.title }} </a><br>
     {% endfor %}
-</body>
-</html>
+{% endblock %}

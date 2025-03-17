@@ -18,8 +18,10 @@ from xml.etree.ElementInclude import include
 
 from django.contrib import admin
 from django.urls import path, include
+from . import url_handlers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", url_handlers.index_handler),
     path("projectcv/", include("projectcv.urls")),
 ]
