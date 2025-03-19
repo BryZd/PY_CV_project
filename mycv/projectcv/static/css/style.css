@@ -36,7 +36,7 @@ nav{
     vertical-align: middle;
     color: white;
     display: inline-block;
-    transition: background 5s ease-in-out;
+    transition: background 0.3s ease-in-out;
     border-radius: 15px;
 }
 .nav_item:hover {
