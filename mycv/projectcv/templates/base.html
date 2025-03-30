@@ -14,6 +14,12 @@
         <div class="flex_box">
             <div class="nav_item"><a href="{% url 'book_index' %}">Index</a></div>
             <div class="nav_item"><a href="{% url 'add_book' %}">Add Book</a></div>
+            {% if request.user.is.autenticated %}
+            <div class="nav_item"><a href="{% url 'logout'%}">Logout</a></div>
+            {% else %}
+            <div class="nav_item"><a href="{% url 'registration' %}">Registration</a></div>
+            <div class="nav_item"><a href="{%url 'login' %}">Login</a></div>
+            {% endif %}
         </div>
     </nav>
     <div class="content">
@@ -26,4 +32,5 @@
     </footer>
 
 </body>
+<div class="text-center">{{request.user.emaill}}</div>
 </html>

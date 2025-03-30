@@ -2,9 +2,10 @@ from django.contrib import admin
 from django import forms
 
 
-from .models import Book, Genre, User, UserManager
+from .models import Book, Genre, User, UserManager, Tag
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+
 
 
 
@@ -62,3 +63,4 @@ class Admin(UserAdmin):
 admin.site.register(Book)
 admin.site.register(Genre)
 admin.site.register(User, Admin)
+admin.site.register(Tag)

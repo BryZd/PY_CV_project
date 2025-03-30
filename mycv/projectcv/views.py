@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
+from django.contrib.auth import login, logout, authenticate
 
-from .models import Book
-from .forms import BookForm
+from .models import Book, User
+from .forms import BookForm, UserForm, LoginForm
 
 # Create your views here.
 class BookIndex(generic.ListView):
@@ -35,3 +36,47 @@ class AddBook(generic.edit.CreateView):
         if form.is_valid():
             form.save(commit=True)
         return render(request, self.template_name, {"form": form})
+
+class UserViewRegister(generic.edit.CreateView):
+    form_class = UserForm
+    model = User
+    template_name = "projectcv/user_form.html"
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data["password"]
+            user.set_password(password)
+            user.save()
+            login(request, user)
+            return redirect("book_index")
+
+        return render(request, self.template_name, {"form": form})
+
+class UserViewLogin(generic.edit.CreateView):
+    form_class = LoginForm
+    template_name = "projectcv/user_form.html"
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(email=email, password=password)
+            if user:
+                login(request, user)
+                return redirect("book_index")
+        return render(request, self.template_name, {"form": form})
+
+def logout_user(request):
+    logout(request)
+    return redirect("login")

@@ -9,14 +9,30 @@ class Genre(models.Model):
     def __str__(self):
         return "Genre_name: {0}".format(self.genre_name)
 
+class Tag(models.Model):
+    tag_title =  models.CharField(max_length=30, verbose_name="Tags")
+
+    def __str__(self):
+        return self.tag_title
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
 
 class Book(models.Model):
     title= models.CharField(max_length=250)
     author= models.CharField(max_length=150)
     genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
-        return "Title: {0} | Author: {1} | Genre: {2}".format(self.title, self.author, self.genre.genre_name)
+        tags = [i.tag_title for i in self.tags.all()]
+
+        return "Title: {0} | Author: {1} | Genre: {2} | Tags: {3}".format(self.title, self.author, self.genre.genre_name, tags)
+
+    class Meta:
+        verbose_name = "Book"
+        verbose_name_plural = "Books"
 
 
 class UserManager(BaseUserManager):
