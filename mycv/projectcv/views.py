@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.template.defaultfilters import title
 from django.views import generic
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -24,10 +25,10 @@ class CurrentBook(generic.DetailView):
 
     def get(self, request, pk):
         try:
-            film = self.get_object()
+            book = self.get_object()
         except:
             return redirect("book_index")
-        return render(request, self.template_name, {"film": film})
+        return render(request, self.template_name, {"book": book})
 
     def post(self, request, pk):
         if request.user.is_authenticated:
@@ -80,7 +81,30 @@ class EditBook(LoginRequiredMixin,generic.edit.CreateView):
         form = self.form_class(instance=book)
         return render(request, self.template_name, {"form": form})
 
-    def post(self, request, pk): # pokračování v lekci 11.
+    def post(self, request, pk):
+        if not request.user.is_admin:
+            messages.info(request, "Only the admin can edit books.")
+            return redirect("book_index")
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            author = form.cleaned_data["author"]
+            genre = form.cleaned_data["genre"]
+            tags = form.cleaned_data["tags"]
+            try:
+                book = Book.objects.get(pk=pk)
+            except:
+                messages.error(request, "This book doesn't exist!")
+                return redirect("book_index")
+            book.title = title
+            book.author = author
+            book.genre = genre
+            book.tags.set(tags)
+            book.save()
+            return redirect("book_detail", pk=book.id)
+        return render(request, self.template_name, {"form": form})
+
 
 
 class UserViewRegister(generic.edit.CreateView):
