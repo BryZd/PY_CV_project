@@ -10,16 +10,24 @@
     <title>ProjectCV</title>
 </head>
 <body>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "error" %}
+            <strong><span style="color: #ff564f">Error: {{message}}</span></strong>
+        {% elif message.tags == "info" %}
+            <strong><span style="color: #ff564f">Info: {{message}}</span></strong>
+        {% else %}
+            <strong><span style="color: #ff564f">Message: {{message}}</span></strong>
+        {% endif %}
+    {% endfor %}
+{% endif %}
     <nav>
         <div class="flex_box">
             <div class="nav_item"><a href="{% url 'book_index' %}">Index</a></div>
-            <div class="nav_item"><a href="{% url 'add_book' %}">Add Book</a></div>
-            {% if request.user.is.autenticated %}
-            <div class="nav_item"><a href="{% url 'logout'%}">Logout</a></div>
-            {% else %}
-            <div class="nav_item"><a href="{% url 'registration' %}">Registration</a></div>
-            <div class="nav_item"><a href="{%url 'login' %}">Login</a></div>
-            {% endif %}
+            {% if not user.is.authenticated %}<div class="nav_item"><a href="{% url 'registration' %}">Registration</a></div>{% endif %}
+            {% if not user.is.authenticated %}<div class="nav_item"><a href="{%url 'login' %}">Login</a></div>{% endif %}
+            {% if user.is.authenticated %}<div class="nav_item"><a href="{% url 'logout' %}">Logout</a></div>{% endif %}
+            {% if not user.is_admin %}<div class="nav_item"><a href="{% url 'add_book' %}">Add Book</a></div>{% endif %}
         </div>
     </nav>
     <div class="content">
@@ -32,5 +40,5 @@
     </footer>
 
 </body>
-<div class="text-center">{{request.user.emaill}}</div>
+<div class="text-center">{{request.user.email}}</div>
 </html>
