@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.template.defaultfilters import title
 from django.views import generic
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -40,7 +39,7 @@ class CurrentBook(generic.DetailView):
                     return redirect("book_index")
                 else:
                     self.get_object().delete()
-        return redirect("book index")
+        return redirect("book_index")
 
 class AddBook(generic.edit.CreateView):
 
@@ -159,6 +158,8 @@ class UserViewLogin(generic.edit.CreateView):
             if user:
                 login(request, user)
                 return redirect("book_index")
+            else:
+                messages.error(request, "This account doesn't exist")
         return render(request, self.template_name, {"form": form})
 
 def logout_user(request):
