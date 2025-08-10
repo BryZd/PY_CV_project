@@ -5,8 +5,9 @@ from django.views import generic
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
-from .models import Book, User
+from .models import Book, User, Genre
 from .forms import BookForm, UserForm, LoginForm
 
 # Create your views here.
@@ -17,7 +18,34 @@ class BookIndex(generic.ListView):
     # tato metoda nám získává seznam knih seřazených od největšího id (9,8,7...)
 
     def get_queryset(self):
-        return Book.objects.all().order_by("-id")
+        qs = Book.objects.select_related("genre").order_by("-id")
+        q = self.request.GET.get("q")
+        author = self.request.GET.get("author")
+        genre = self.request.GET.get("genre")
+        rating = self.request.GET.get("rating")
+
+        if q:
+            qs = qs.filter(Q(title__icontains=q) | Q(author__icontains=q))
+        if author:
+            qs = qs.filter(author=author)
+        if genre:
+            qs = qs.filter(genre_id=genre)
+        if rating:
+            qs = qs.filter(rating=rating)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["authors"] = (Book.objects.order_by("author").distinct().values_list("author", flat=True).distinct())
+        ctx["genres"] = Genre.objects.order_by("genre_name")
+        ctx["ratings"] = [1, 2, 3, 4, 5]
+        ctx["current"] = {
+            "q": self.request.GET.get("q", ""),
+            "author": self.request.GET.get("author", ""),
+            "genre": self.request.GET.get("genre", ""),
+            "rating": self.request.GET.get("rating", ""),
+        }
+        return ctx
 
 class CurrentBook(generic.DetailView):
 
@@ -32,16 +60,17 @@ class CurrentBook(generic.DetailView):
         return render(request, self.template_name, {"book": book})
 
     def post(self, request, pk):
-        if request.user.is_authenticated or not getattr(request.user, "is_admin", False):
-            if "edit" in request.POST:
-                return redirect("edit_book", pk=self.get_object().pk)
-            else:
-                if not request.user.is_admin:
-                    messages.info(request, "You cannot delete the book; you are not an admin")
-                    return redirect("book_index")
-                else:
-                    self.get_object().delete()
-        return redirect("book_index")
+        # Only allow admins to trigger edit/delete actions via POST
+        if not request.user.is_authenticated or not getattr(request.user, "is_admin", False)
+            messages.info(request, "Only the admin can edit books.")
+            return redirect("book_index")
+
+        if "edit" in request.POST:
+            return redirect("edit_book", pk=self.get_object().pk)
+        if "delete" in request.POST:
+            self.get_object().delete()
+            return redirect("book_index")
+        return redirect("book_detail", pk=pk)
 
 class AddBook(generic.edit.CreateView):
 

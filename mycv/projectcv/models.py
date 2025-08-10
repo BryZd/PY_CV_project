@@ -24,6 +24,7 @@ class Book(models.Model):
     author= models.CharField(max_length=150)
     genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
+    rating = models.IntegerField(null=True, blank=True, choices=[(i, i) for i in range(1, 6)]) # range marks 1-5
 
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
