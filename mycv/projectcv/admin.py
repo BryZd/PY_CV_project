@@ -1,13 +1,9 @@
 from django.contrib import admin
 from django import forms
 
-
-from .models import Book, Genre, User, UserManager, Tag
+from .models import Book, Genre, User, Tag
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
-
-
 
 
 class UserCreationForm(forms.ModelForm):
@@ -27,7 +23,7 @@ class UserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
         return user
@@ -54,8 +50,8 @@ class Admin(UserAdmin):
 
     add_fieldsets = (
         (None, {
-            "fields": ["email", "password"]}
-        ),
+            "fields": ["email", "password1", "password2"],
+        }),
     )
     search_fields = ["email"]
     ordering = ["email"]
