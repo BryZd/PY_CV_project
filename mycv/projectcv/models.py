@@ -27,8 +27,9 @@ class Book(models.Model):
 
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
+        genre_name = self.genre.genre_name if self.genre else "None"
 
-        return "Title: {0} | Author: {1} | Genre: {2} | Tags: {3}".format(self.title, self.author, self.genre.genre_name, tags)
+        return f"Title: {self.title} | Author: {self.author} | Genre: {genre_name} | Tags: {tags}"
 
     class Meta:
         verbose_name = "Book"
@@ -37,13 +38,13 @@ class Book(models.Model):
 
 class UserManager(BaseUserManager):
     # create user
-    def create_user(self, email, password):
-        print(self.model)
-        if email and password:
-            user = self.model(email=self.normalize_email(email))
-            user.set_password(password)
-            user.save()
-            return user
+    def create_user(self, email, password=None):
+        if not email: raise ValueError("User must have an email address")
+        if not password: raise ValueError("User must have a password")
+        user = self.model(email=self.normalize_email(email))
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
     # create admin
     def create_superuser(self, email, password):

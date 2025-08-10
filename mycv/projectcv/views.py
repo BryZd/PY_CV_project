@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import generic
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -12,7 +14,7 @@ class BookIndex(generic.ListView):
     template_name = "projectcv/book_index.html"  # cesta k šabloně ze složky tamplates (je možné sdílet mezi aplikacemi)
     context_object_name = "books"  # pod tímto jménem budeme volat seznam objektů v šabloně
 
-    # tato metoda nám získává seznam filmů seřazených od největšího id (9,8,7...)
+    # tato metoda nám získává seznam knih seřazených od největšího id (9,8,7...)
 
     def get_queryset(self):
         return Book.objects.all().order_by("-id")
@@ -22,7 +24,7 @@ class CurrentBook(generic.DetailView):
     model = Book
     template_name = "projectcv/book_detail.html"
 
-    def get(self, request, pk):
+    def get(self, request, *args, **kwargs):
         try:
             book = self.get_object()
         except:
@@ -30,7 +32,7 @@ class CurrentBook(generic.DetailView):
         return render(request, self.template_name, {"book": book})
 
     def post(self, request, pk):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated or not getattr(request.user, "is_admin", False):
             if "edit" in request.POST:
                 return redirect("edit_book", pk=self.get_object().pk)
             else:
@@ -48,7 +50,7 @@ class AddBook(generic.edit.CreateView):
 
 #Metoda pro GET request, zobrazí pouze formulář
     def get(self, request):
-        if not request.user.is_admin:
+        if not request.user.is_authenticated or not getattr(request.user, "is_admin", False):
             messages.info(request, "Only the admin can add books.")
             return redirect("book_index")
         form = self.form_class(None)
@@ -56,54 +58,37 @@ class AddBook(generic.edit.CreateView):
 
 # Metoda pro POST request, zkontroluje formulář; pokud je validní, vytvoří novou knihu; pokud ne, zobrazí formulář s chybovou hláškou
     def post(self, request):
-        if not request.user.is_admin:
+        if not request.user.is_authenticated or not getattr(request.user, "is_admin", False):
             messages.info(request, "Only the admin can add books.")
             return redirect("book_index")
         form = self.form_class(request.POST)
         if form.is_valid():
-            form.save(commit=True)
-        return render(request, self.template_name, {"form": form})
+            book = form.save()
+        return redirect("book_detail", pk=book.pk)
 
-class EditBook(LoginRequiredMixin,generic.edit.CreateView):
+class EditBook(LoginRequiredMixin, UserPassesTestMixin, generic.edit.UpdateView):
+    model = Book
     form_class = BookForm
     template_name = "projectcv/add_book.html"
+    context_object_name = "book"
 
-    def get(self,request, pk):
-        if not request.user.is_admin:
-            messages.info(request, "Only the admin can edit books.")
-            return redirect("book_index")
-        try:
-            book = Book.objects.get(pk=pk)
-        except:
-            messages.error(request, "This book doesn't exist!")
-            return redirect("book_index")
-        form = self.form_class(instance=book)
-        return render(request, self.template_name, {"form": form})
+    # Only admin can edit
+    def test_func(self):
+        user = self.request.user
+        return user.is_authenticated and getattr(user, "is_admin", False)
 
-    def post(self, request, pk):
-        if not request.user.is_admin:
-            messages.info(request, "Only the admin can edit books.")
-            return redirect("book_index")
-        form = self.form_class(request.POST)
+    # Message + redirect when not permitted
+    def handle_no_permission(self):
+        messages.info(self.request, "Only the admin can edit books.")
+        return redirect("book_index")
 
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            author = form.cleaned_data["author"]
-            genre = form.cleaned_data["genre"]
-            tags = form.cleaned_data["tags"]
-            try:
-                book = Book.objects.get(pk=pk)
-            except:
-                messages.error(request, "This book doesn't exist!")
-                return redirect("book_index")
-            book.title = title
-            book.author = author
-            book.genre = genre
-            book.tags.set(tags)
-            book.save()
-            return redirect("book_detail", pk=book.id)
-        return render(request, self.template_name, {"form": form})
+    # Ensure we fetch the book we're trying to edit
+    def get_object(self, queryset=None):
+        return get_object_or_404(Book, pk=self.kwargs.get("pk"))
 
+    # After a successful POST, redirect to the detail page
+    def get_success_url(self):
+        return reverse("book_detail", kwargs={"pk": self.object.pk})
 
 
 class UserViewRegister(generic.edit.CreateView):
@@ -154,7 +139,7 @@ class UserViewLogin(generic.edit.CreateView):
         if form.is_valid():
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
-            user = authenticate(email=email, password=password)
+            user = authenticate(request, username=email, password=password)
             if user:
                 login(request, user)
                 return redirect("book_index")

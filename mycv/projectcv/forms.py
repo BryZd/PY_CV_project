@@ -14,10 +14,10 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["email", "password"]
+        fields = ["email"]
 
 class LoginForm(forms.Form):
-    email = forms.CharField()
+    email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:

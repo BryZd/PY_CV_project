@@ -1,17 +1,19 @@
 
 {% extends "base.html" %}
 {% block content %}
-    <h1> {{ book.title }}<span class="glyphicon glyphicon-erase"</span></h1>
+    <h1> {{ book.title }}<span class="glyphicon glyphicon-erase"></span></h1>
     <small>Author: {{ book.author }} </small>
-    <h3>Genre: {{ book.genre.genre_name }} </h3>
+    <h3>Genre: {{ book.genre.genre_name|default:"None" }} </h3>
 
     Tags:
     {% if book.tags.all.0 %}
-        {% for tag in book.tags.all %}
-            <div class="btn btn-primary">{{tag.tag_title}}</div>
-        {% endfor %}
-    {% else %}<span style="color: red">This movie doesn't have any tags</span>
-    {% endif %}
+        {% if book.tags.count %}
+            {% for tag in book.tags.all %}
+                <div class="btn btn-primary">{{tag.tag_title}}</div>
+            {% endfor %}
+        {% else %}
+            <span style="color: red">This book doesn't have any tags</span>
+        {% endif %}
     <hr>
     <form method="POST">
         {% csrf_token %}
