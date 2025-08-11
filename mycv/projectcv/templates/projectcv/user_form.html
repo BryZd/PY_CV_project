@@ -11,11 +11,8 @@
 
         <form method="post" action="">
             {% csrf_token %}
-            <div class="container-fluid">
-                {{form|crispy}}
-
-                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Login">Submit</button>
-            </div>
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
         </form>
     </section>
 </div>

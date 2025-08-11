@@ -2,9 +2,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="POST">
+<form method="post">
     {%csrf_token %} <!-- Django požaduje ověření proti útoku csfr -->
-    {{ form|crispy }}
-    <input type="submit">
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
 </form>
 {% endblock %}

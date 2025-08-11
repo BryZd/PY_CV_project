@@ -57,10 +57,10 @@
                         <td>{{ book.genre.genre_name|default:"None" }}</td>
                         <td>{% if book.rating %}{{ book.rating }}{% else %}-{% endif %}</td>
                         <td class="text-end">
-                            <a href="btn btn-sm btn-outline-info" href="{% url 'book_detail' book.id %}">View</a>
-                            {% if user.is admin %}
+                            <a class="btn btn-sm btn-outline-info" href="{% url 'book_detail' book.id %}">View</a>
+                            {% if user.is_admin %}
                                 <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book' book.id %}">Edit</a>
-                                <form method="post" action="{ url 'book_detail' book.id %}" style="..." onsubmit="return confirm('Delete this book?')">
+                                <form method="post" action="{% url 'book_detail' book.id %}" style="..." onsubmit="return confirm('Delete this book?')">
                                     {% csrf_token %}
                                     <button type="submit" name="delete" class="btn btn-sm btn-outline-danger">Delete</button>
                                 </form>
