@@ -51,7 +51,7 @@ class BookIndex(generic.ListView):
             "q": self.request.GET.get("q", ""),
             "author": self.request.GET.get("author", ""),
             "genre": self.request.GET.get("genre", ""),
-            "rating": self.request.GET.get("rating", ""),
+            "rating": self.request.GET.get("rating") or None,
         }
         return ctx
 
