@@ -61,13 +61,13 @@ class Admin(UserAdmin):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'get_genres', 'rating']
-    filter_horizontal = ('genres', 'tags')
+    filter_horizontal = ('genre', 'tags')
 
     def get_genres(self, obj):
-        return", ".join([genre.genre_name for genre in obj.genres.all()])
-    get_genres.short_description = 'Genre'
+        return", ".join([genre.genre_name for genre in obj.genre.all()])
+    get_genres.short_description = 'Genres'
 
-admin.site.register(Book)
+
 admin.site.register(Genre)
 admin.site.register(User, Admin)
 admin.site.register(Tag)

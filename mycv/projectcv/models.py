@@ -29,7 +29,7 @@ class Book(models.Model):
 
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
-        genre_names = [g.genre_name for g in self.genre.all()] if self.genres.exists() else ["None"]
+        genre_names = [g.genre_name for g in self.genre.all()] if self.genre.exists() else ["None"]
         genre_display = ", ".join(genre_names)
 
         return f"Title: {self.title} | Author: {self.author} | Genres: {genre_display} | Tags: {tags}"

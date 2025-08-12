@@ -25,7 +25,7 @@ class BookIndex(generic.ListView):
 
     def get_queryset(self):
         # Get filtered parameters from request
-        qs = Book.objects.prefetch_related("genres").order_by("-id")
+        qs = Book.objects.prefetch_related("genre").order_by("-id")
         q = self.request.GET.get("q")
         author = self.request.GET.get("author")
         genre = self.request.GET.get("genre")
@@ -37,7 +37,7 @@ class BookIndex(generic.ListView):
         if author:
             qs = qs.filter(author=author)
         if genre:
-            qs = qs.filter(genres__id=genre)
+            qs = qs.filter(genre__id=genre)
         if rating:
             qs = qs.filter(rating=rating)
         return qs

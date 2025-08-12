@@ -55,8 +55,8 @@
                         </td>
                         <td>{{ book.author }}</td>
                         <td>
-                            {% if book.genres.all %}
-                                {% for genre in book.genres.all %}
+                            {% if book.genre.all %}
+                                {% for genre in book.genre.all %}
                                     {{ genre.genre_name }}{% if not forloop.last %}, {% endif%}
                                 {% endfor %}
                             {% else %}

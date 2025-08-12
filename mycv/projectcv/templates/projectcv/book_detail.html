@@ -4,8 +4,8 @@
     <h1> {{ book.title }}<span class="glyphicon glyphicon-erase"></span></h1>
     <small>Author: {{ book.author }} </small>
     <h3>Genre:
-        {% if book.genres.all %}
-            {% for genre in book.genres.all %}
+        {% if book.genre.all %}
+            {% for genre in book.genre.all %}
                 <span class="badge bg-secondary"> {{ genre.genre_name }}</span>
                 {% if not forloop.last %}, {% endif%}
             {% endfor %}
