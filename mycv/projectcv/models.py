@@ -23,15 +23,16 @@ class Tag(models.Model):
 class Book(models.Model):
     title= models.CharField(max_length=250)
     author= models.CharField(max_length=150)
-    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, null=True)
+    genre = models.ManyToManyField(Genre, blank=True)
     tags = models.ManyToManyField(Tag)
     rating = models.IntegerField(null=True, blank=True, choices=[(i, i) for i in range(1, 6)]) # range marks 1-5
 
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
-        genre_name = self.genre.genre_name if self.genre else "None"
+        genre_names = [g.genre_name for g in self.genre.all()] if self.genres.exists() else ["None"]
+        genre_display = ", ".join(genre_names)
 
-        return f"Title: {self.title} | Author: {self.author} | Genre: {genre_name} | Tags: {tags}"
+        return f"Title: {self.title} | Author: {self.author} | Genres: {genre_display} | Tags: {tags}"
 
     class Meta:
         verbose_name = "Book"

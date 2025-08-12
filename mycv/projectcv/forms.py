@@ -1,13 +1,15 @@
 
 from django import forms
-from .models import Book, Tag, User
+from .models import Book, Tag, User, Genre
+
 
 class BookForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), required=False)
+    genres = forms.ModelMultipleChoiceField(queryset=Genre.objects.all(), required=False)
 
     class Meta:
         model = Book
-        fields = ["title", "author", "genre", "tags", "rating"]
+        fields = ["title", "author", "genres", "tags", "rating"]
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)

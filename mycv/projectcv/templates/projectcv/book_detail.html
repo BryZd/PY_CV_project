@@ -3,8 +3,16 @@
 {% block content %}
     <h1> {{ book.title }}<span class="glyphicon glyphicon-erase"></span></h1>
     <small>Author: {{ book.author }} </small>
-    <h3>Genre: {{ book.genre.genre_name|default:"None" }} </h3>
-
+    <h3>Genre:
+        {% if book.genres.all %}
+            {% for genre in book.genres.all %}
+                <span class="badge bg-secondary"> {{ genre.genre_name }}</span>
+                {% if not forloop.last %}, {% endif%}
+            {% endfor %}
+        {% else %}
+            None
+        {% endif %}
+    </h3>
 
     <hr>
 {% endblock %}

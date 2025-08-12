@@ -54,7 +54,15 @@
                             <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
                         </td>
                         <td>{{ book.author }}</td>
-                        <td>{{ book.genre.genre_name|default:"None" }}</td>
+                        <td>
+                            {% if book.genres.all %}
+                                {% for genre in book.genres.all %}
+                                    {{ genre.genre_name }}{% if not forloop.last %}, {% endif%}
+                                {% endfor %}
+                            {% else %}
+                                None
+                            {% endif %}
+                        </td>
                         <td>{% if book.rating %}{{ book.rating }}{% else %}-{% endif %}</td>
                         <td class="text-end">
                             <a class="btn btn-sm btn-outline-info" href="{% url 'book_detail' book.id %}">View</a>

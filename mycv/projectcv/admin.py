@@ -57,7 +57,15 @@ class Admin(UserAdmin):
     ordering = ["email"]
     filter_horizontal = []
 
-# Register your models here.
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ['title', 'author? 'get_genres, 'rating']
+    filter_horizontal = ('genres', 'tags')
+
+    def get_genres(self, obj):
+        return", ".join([genre.genre_name for genre in obj.genres.all()])
+    get_genres.short_description = 'Genre'
 
 admin.site.register(Book)
 admin.site.register(Genre)
