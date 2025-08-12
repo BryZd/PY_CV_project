@@ -16,10 +16,4 @@
         {% endif %}
     {% endif %}
     <hr>
-    <form method="POST">
-        {% csrf_token %}
-
-        <button type="submit" name="edit" value="true">Edit</button>
-        <button type="submit" name="delete" value="true">Delete</button>
-    </form>
 {% endblock %}
