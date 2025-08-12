@@ -60,7 +60,7 @@ class Admin(UserAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author? 'get_genres, 'rating']
+    list_display = ['title', 'author', 'get_genres', 'rating']
     filter_horizontal = ('genres', 'tags')
 
     def get_genres(self, obj):
