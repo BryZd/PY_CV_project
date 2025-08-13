@@ -20,7 +20,7 @@ RATING_VALUES = [choice[0] for choice in RATING_CHOICES]
 class BookIndex(generic.ListView):
     template_name = "projectcv/book_index.html"  # cesta k šabloně ze složky tamplates (je možné sdílet mezi aplikacemi)
     context_object_name = "books"  # pod tímto jménem budeme volat seznam objektů v šabloně
-
+    paginate_by = 20 # this line enable to pagination with 20 items per page
 
 
     def get_queryset(self):
