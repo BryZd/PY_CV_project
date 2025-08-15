@@ -27,6 +27,14 @@ class Book(models.Model):
     tags = models.ManyToManyField(Tag)
     rating = models.IntegerField(null=True, blank=True, choices=[(i, i) for i in range(1, 6)]) # range marks 1-5
 
+    # Layout
+    image = models.ImageField(upload_to='book_covers/', null=True, blank=True)
+    published_date = models.DateField(null=True, blank=True)
+    ean = models.CharField(max_length=13, null=True, blank=True)
+    isbn = models.CharField(max_length=17, null=True, blank=True)
+    author_bio = models.TextField(null=True, blank=True)
+    author_photo = models.ImageField(upload_to='author_photos/', null=True, blank=True)
+
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
         genre_names = [g.genre_name for g in self.genre.all()] if self.genre.exists() else ["None"]
@@ -83,3 +91,12 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
+class Comment(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
