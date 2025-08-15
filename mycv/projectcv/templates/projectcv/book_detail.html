@@ -4,126 +4,131 @@
 {% block content %}
 
 <div class="book-detail-container">
-    <!-- Main Book Information Section -->
-    <div class="book-main-section">
-        <!-- Book Picture - Top Left Corner-->
-        <div class="book-image-container">
-            {% if book.image %}
-                <img src="{{ book.image.url }}" alt="Book.title" class="book-cover">
-            {% else %}
-                <div class="book-placeholder">
-                    <i class="fas fa-book"></i>
-                    <p>No Image </p>
-                </div>
-            {% endif %}
-        </div>
-
-        <!-- Book Details - Right of Picture -->
-        <div class="book-details-container">
-            <h1 class="book-title">{{ book.title }}</h1>
-            <h3 class="book-author">{{ book.author }}</h3>
-
-            <div class="book-genre">
-                <strong>Genre:</strong>
-                {% if book.genre.all %}
-                    {% for genre in book.genre.all %}
-                        <span class="badge bg-secondary"> {{ genre.genre_name }}</span>
-                        {% if not forloop.last %}, {% endif%}
-                    {% endfor %}
+    <!-- Left Content Column -->
+    <div class="left-content">
+        <!-- Main Book Information Section -->
+        <div class="book-main-section">
+            <!-- Book Picture - Top Left Corner-->
+            <div class="book-image-container">
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" alt="Book.title" class="book-cover">
                 {% else %}
-                    <span class="text-muted">None</span>
+                    <div class="book-placeholder">
+                        <i class="fas fa-book"></i>
+                        <p>No Image </p>
+                    </div>
                 {% endif %}
             </div>
 
-            {% if book.published_date %}
-            <div class="book-info">
-                <strong>Published:</strong> {{ book.published_date|date:"Y" }}
-            </div>
-            {% endif %}
+            <!-- Book Details - Right of Picture -->
+            <div class="book-details-container">
+                <h1 class="book-title">{{ book.title }}</h1>
+                <h3 class="book-author">{{ book.author }}</h3>
 
-            {% if book.ean %}
-            <div class="book-info">
-                <strong>EAN:</strong> {{ book.ean }}
-            </div>
-            {% endif %}
-
-            {% if book.isbn %}
-            <div class="book-info">
-                <strong>ISBN:</strong> {{ book.isbn }}
-            </div>
-            {% endif %}
-
-            {% if book.rating %}
-            <div class="book-rating">
-                <strong>Rating:</strong>
-                {% for i in "12345"|make_list %}
-                    {% if forloop.counter <= book.rating %}
-                        <i class="fas fa-star text-warning"></i>
+                <div class="book-genre">
+                    <strong>Genre:</strong>
+                    {% if book.genre.all %}
+                        {% for genre in book.genre.all %}
+                            <span class="badge bg-secondary"> {{ genre.genre_name }}</span>
+                            {% if not forloop.last %}, {% endif%}
+                        {% endfor %}
                     {% else %}
-                        <i class="far fa-star text-muted"></i>
+                        <span class="text-muted">None</span>
                     {% endif %}
-                {% endfor %}
+                </div>
+
+
+                {% if book.published_date %}
+                <div class="book-info">
+                    <strong>Published:</strong> {{ book.published_date|date:"M d, Y" }}
+                </div>
+                {% endif %}
+
+                {% if book.ean %}
+                <div class="book-info">
+                    <strong>EAN:</strong> {{ book.ean }}
+                </div>
+                {% endif %}
+
+                {% if book.isbn %}
+                <div class="book-info">
+                    <strong>ISBN:</strong> {{ book.isbn }}
+                </div>
+                {% endif %}
+
+                {% if book.rating %}
+                <div class="book-rating">
+                    <strong>Rating:</strong>
+                    {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= book.rating %}
+                            <i class="fas fa-star text-warning"></i>
+                        {% else %}
+                            <i class="far fa-star text-muted"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
 
-        <!-- Social Media Links -->
-        <div class="social-links">
-            <a href="#" class="social-link facebook" title="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
+            <!-- Social Media Links -->
+            <div class="social-links">
+                <a href="https://www.facebook.com/arcreabooks" class="social-link facebook" title="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
 
-            <a href="#" class="social-link instagram" title="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
+                <a href="https://www.instagram.com/arcrea_author/" class="social-link instagram" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
 
-            <a href="#" class="social-link amazon" title="Amazon">
-                <i class="fab fa-amazon"></i>
-            </a>
+                <a href="https://www.amazon.com/Singular-Nicole-Sager-ebook/dp/B0DVS3CR2Z?ref_=ast_author_mpb" class="social-link amazon" title="Amazon">
+                    <i class="fab fa-amazon"></i>
+                </a>
+            </div>
+
+            <!-- Authro Bio Section - Left Bottom Corner -->
+            <div class="author-bio-container">
+                <div class="author-bio-frame">
+                    <h4>About the Author</h4>
+                    {% if book.author_photo %}
+                        <img src="{{ book.author_photo.url }}" alt="{{ book.author }}" class="author-photo">
+                    {% else %}
+                        <div class="author-photo-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                    <div class="author-bio-text">
+                        {% if book.author_bio %}
+                            {{ book.author_bio|linebreaks }}
+                        {% else %}
+                            <p class="text-muted">No author biography available</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Bottom Section with Author Bio and Comments -->
-    <div class="book-bottom-section">
-        <!-- Authro Bio Section - Left Bottom Corner -->
-        <div class="author-bio-container">
-            <div class="author-bio-frame">
-                <h4>About the Author</h4>
-                {% if book.author_photo %}
-                    <img src="{{ book.author_photo.url }}" alt="{{ book.author }}" class="author-photo">
-                {% else %}
-                    <div class="author-photo-placeholder">
-                        <i class="fas fa-user"></i>
-                    </div>
-                {% endif %}
-                <div class="author-bio-text">
-                    {% if book.author_bio %}
-                        {{ book.author_bio|linebreaks }}
-                    {% else %}
-                        <p class="text-muted">No author biography available</p>
-                    {% endif %}
-                </div>
+
+
+
+
+    <!-- Comments Section - Right Column -->
+    <div class="comments-section">
+        <h4>Reader Comments</h4>
+
+        <!-- Comments List Scroll -->
+        <div class="comments-list">
+            {% for comment in book.comments.all %}
+            <div class="comment-header">
+                <strong>{{ comment.user.email| default:"Anonymous" }}</strong>
+                <span class="comment-date">{{ comment.created_at| date:"M d, Y" }}</span>
             </div>
+            <div class="comment-text">{{ comment.content }}</div>
         </div>
-
-
-        <!-- Comments Section - Left Side with Fixed Width -->
-        <div class="comments-section">
-            <h4>Reader Comments</h4>
-
-            <!-- Comments List Scroll -->
-            <div class="comments-list">
-                {% for comment in book.comments.all %}
-                <div class="comment-header">
-                    <strong>{{ comment.user.email| default:"Anonymous" }}</strong>
-                    <span class="comment-date">{{ comment.created_at| date:"M d, Y" }}</span>
-                </div>
-                <div class="comment-text">{{ comment.content }}</div>
-            </div>
-            {% empty %}
-            <p class="no-comments">No comments yet. Be the first to comment!</p>
-            {% endfor %}
-            </div>
+        {% empty %}
+        <p class="no-comments">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
 
             <!-- Comment Form -->
             <div class="comment-form-container">
