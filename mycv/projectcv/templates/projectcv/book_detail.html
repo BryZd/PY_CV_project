@@ -7,8 +7,8 @@
     <!-- Main Book Information Section -->
     <div class="book-main-section">
         <!-- Book Picture - Top Left Corner-->
-        <div class="book-picture-container">
-            {% of book.image %}
+        <div class="book-image-container">
+            {% if book.image %}
                 <img src="{{ book.image.url }}" alt="Book.title" class="book-cover">
             {% else %}
                 <div class="book-placeholder">
@@ -41,7 +41,7 @@
             </div>
             {% endif %}
 
-            {% book.ean %}
+            {% if book.ean %}
             <div class="book-info">
                 <strong>EAN:</strong> {{ book.ean }}
             </div>
@@ -54,7 +54,7 @@
             {% endif %}
 
             {% if book.rating %}
-            <div calss="book-rating">
+            <div class="book-rating">
                 <strong>Rating:</strong>
                 {% for i in "12345"|make_list %}
                     {% if forloop.counter <= book.rating %}
@@ -90,14 +90,14 @@
             <div class="author-bio-frame">
                 <h4>About the Author</h4>
                 {% if book.author_photo %}
-                    <img scr="{{ book.author_photo.url }}" alt="{{ book.author }}" class="author-photo">
+                    <img src="{{ book.author_photo.url }}" alt="{{ book.author }}" class="author-photo">
                 {% else %}
                     <div class="author-photo-placeholder">
                         <i class="fas fa-user"></i>
                     </div>
                 {% endif %}
                 <div class="author-bio-text">
-                    {% if book.author-bio %}
+                    {% if book.author_bio %}
                         {{ book.author_bio|linebreaks }}
                     {% else %}
                         <p class="text-muted">No author biography available</p>
