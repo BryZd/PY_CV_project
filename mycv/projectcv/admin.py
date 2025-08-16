@@ -60,8 +60,28 @@ class Admin(UserAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'get_genres', 'rating']
+    list_display = ['title', 'author', 'publisher', 'get_genres', 'rating']
+    list_filter = ['genre', 'rating', 'published_date']
+    search_fields = ['title', 'author', 'publisher']
     filter_horizontal = ('genre', 'tags')
+
+    fieldsets = (
+        ('Basic Information',{
+            'fields': ('title', 'author', 'publisher', 'rating')
+        }),
+        ('Content', {
+            'fields': ('blurb', 'author_bio')
+        }),
+        ('Publication Details', {
+            'fields': ('published_date', 'ean', 'isbn')
+        }),
+        ('Media', {
+            'fields': ('image', 'author_photo')
+        }),
+        ('Categories', {
+            'fields': ('genre', 'tags')
+        }),
+    )
 
     def get_genres(self, obj):
         return", ".join([genre.genre_name for genre in obj.genre.all()])

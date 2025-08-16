@@ -9,7 +9,13 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ["title", "author", "genre", "tags", "rating"]
+        fields = ["title", "author", "publisher", "blurb", "genre", "tags", "rating"]
+
+        widgets = {
+            'blurb': forms.Textarea(attrs={'rows': 4}),
+            'author_bio': forms.Textarea(attrs={'rows': 4}),
+            'published_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)

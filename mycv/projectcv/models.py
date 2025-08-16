@@ -23,6 +23,7 @@ class Tag(models.Model):
 class Book(models.Model):
     title= models.CharField(max_length=250)
     author= models.CharField(max_length=150)
+    publisher = models.CharField(max_length=150, null=True, blank=True)
     genre = models.ManyToManyField(Genre, blank=True)
     tags = models.ManyToManyField(Tag)
     rating = models.IntegerField(null=True, blank=True, choices=[(i, i) for i in range(1, 6)]) # range marks 1-5
@@ -34,6 +35,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=17, null=True, blank=True)
     author_bio = models.TextField(null=True, blank=True)
     author_photo = models.ImageField(upload_to='author_photos/', null=True, blank=True)
+    blurb = models.TextField(null=True, blank=True, help_text="Short description of the book")
 
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
