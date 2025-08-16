@@ -25,6 +25,12 @@
                 <h1 class="book-title">{{ book.title }}</h1>
                 <h3 class="book-author">{{ book.author }}</h3>
 
+                {% if book.publisher %}
+                <div class="book-publisher">
+                    <strong>Publisher:</strong> {{ book.publisher }}
+                </div>
+                {% endif %}
+
                 <div class="book-genre">
                     <strong>Genre:</strong>
                     {% if book.genre.all %}
@@ -104,6 +110,20 @@
                         {% endif %}
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Book Blurb Section -->
+        <div class="book-blurb-container">
+            <div class="book-blurb-frame">
+                <h4>About This Book</h4>
+                {% if book.blurb %}
+                    <div class="book-blurb-text">
+                        {{ book.blurb|linebreaks }}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No book description available</p>
+                {% endif %}
             </div>
         </div>
     </div>
