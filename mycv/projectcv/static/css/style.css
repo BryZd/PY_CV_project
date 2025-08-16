@@ -365,7 +365,7 @@ nav {
    ============================================================================ */
 
 .comments-section {
-    width: 400px;
+    width: 300px;
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 10px;
@@ -733,7 +733,7 @@ footer {
     }
 
     .comments-section {
-        width: 300px;
+        width: 250px;
         max-height: 85vh;
         min-height: 600px;
     }
@@ -746,12 +746,12 @@ footer {
 /* Large Desktop (max-width: 1200px) */
 @media (max-width: 1200px) {
     .book-detail-container {
-        grid-template-columns: 1fr 350px;
+        grid-template-columns: 1fr 280px;
         max-width: 100%;
     }
 
     .comments-section {
-        width: 350px;
+        width: 280px;
     }
 }
 
@@ -783,7 +783,7 @@ footer {
     }
 
     .comments-section {
-        width: 480px;
+        width: 380px;
         padding: 22px;
         max-height: 85vh;
         min-height: 650px;
@@ -794,7 +794,7 @@ footer {
     }
 
     .book-detail-container {
-        grid-template-columns: 1fr 480px;
+        grid-template-columns: 1fr 380px;
         gap: 35px;
         max-width: 1800px;
         padding: 20px;
@@ -837,7 +837,7 @@ footer {
     }
 
     .comments-section {
-        width: 480px;
+        width: 380px;
         padding: 22px;
         height: 80vh;
         max-height: 80vh;
@@ -876,7 +876,7 @@ footer {
     }
 
     .book-detail-container {
-        grid-template-columns: 1fr 500px;
+        grid-template-columns: 1fr 400px;
         gap: 40px;
         max-width: 2000px;
         padding: 25px;
@@ -931,7 +931,7 @@ footer {
     }
 
     .comments-section {
-        width: 500px;
+        width: 400px;
         padding: 25px;
         height: 90vh;
         max-height: 90vh;
@@ -958,7 +958,7 @@ footer {
     }
 
     .comments-section {
-        width: 500px;
+        width: 400px;
         padding: 25px;
         max-height: 82vh;
         min-height: 630px;
@@ -1016,7 +1016,7 @@ footer {
     }
 
     .book-detail-container {
-        grid-template-columns: 1fr 600px;
+        grid-template-columns: 1fr 480px;
         gap: 50px;
         max-width: 2400px;
         padding: 30px;
@@ -1139,7 +1139,7 @@ footer {
     }
 
     .comments-section {
-        width: 600px;
+        width: 480px;
         padding: 30px;
         max-height: 85vh;
         min-height: 750px;
