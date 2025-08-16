@@ -517,15 +517,20 @@ footer {
 
 .footer-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
-    position: relative;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-text {
+    color: white;
+    font-size: 1rem;
 }
 
 .user-info {
-    position: absolute;
-    right: 20px;
     font-size: 0.9rem;
     color: #b2d48d;
 }
