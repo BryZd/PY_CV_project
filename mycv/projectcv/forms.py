@@ -9,7 +9,8 @@ class BookForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ["title", "author", "publisher", "blurb", "genre", "tags", "rating"]
+        fields = ["title", "author", "publisher", "blurb", "genre", "tags", "rating", "published_date", "ean", "isbn",
+                  "author_bio", "image", "author_photo", "rating", "facebook_url", "instagram_url", "amazon_url"]
 
         widgets = {
             'blurb': forms.Textarea(attrs={'rows': 4}),

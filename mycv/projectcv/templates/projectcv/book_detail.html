@@ -92,17 +92,23 @@
 
             <!-- Social Media Links -->
             <div class="social-links">
-                <a href="https://www.facebook.com/arcreabooks" class="social-link facebook" title="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
+                {% if book.facebook_url %}
+                    <a href="{{ book.facebook_url }}" class="social-link facebook" title="Facebook" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                {% endif %}
 
-                <a href="https://www.instagram.com/arcrea_author/" class="social-link instagram" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
+                {% if book.instagram_url %}
+                    <a href="{{ book.instagram_url }}" class="social-link instagram" title="Instagram" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                {% endif %}
 
-                <a href="https://www.amazon.com/Singular-Nicole-Sager-ebook/dp/B0DVS3CR2Z?ref_=ast_author_mpb" class="social-link amazon" title="Amazon">
-                    <i class="fab fa-amazon"></i>
-                </a>
+                {% if book.amazon_url %}
+                    <a href="{{ book.amazon_url }}" class="social-link amazon" title="Amazon" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-amazon"></i>
+                    </a>
+                {% endif %}
             </div>
 
             <!-- Authro Bio Section - Left Bottom Corner -->

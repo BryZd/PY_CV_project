@@ -81,6 +81,9 @@ class BookAdmin(admin.ModelAdmin):
         ('Categories', {
             'fields': ('genre', 'tags')
         }),
+        ('Social Media', {
+            'fields': ('facebook_url', 'instagram_url', 'amazon_url')
+        })
     )
 
     def get_genres(self, obj):

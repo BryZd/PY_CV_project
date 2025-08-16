@@ -37,6 +37,11 @@ class Book(models.Model):
     author_photo = models.ImageField(upload_to='author_photos/', null=True, blank=True)
     blurb = models.TextField(null=True, blank=True, help_text="Short description of the book")
 
+    # Social Media Links
+    facebook_url = models.URLField(max_length=200, null=True, blank=True, help_text="Facebook page URL")
+    instagram_url = models.URLField(max_length=200, null=True, blank=True, help_text="Instagram page URL")
+    amazon_url = models.URLField(max_length=200, null=True, blank=True, help_text="Amazon page URL")
+
     def __str__(self):
         tags = [i.tag_title for i in self.tags.all()]
         genre_names = [g.genre_name for g in self.genre.all()] if self.genre.exists() else ["None"]
