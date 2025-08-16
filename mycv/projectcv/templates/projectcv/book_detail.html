@@ -139,16 +139,17 @@
         <!-- Comments List Scroll -->
         <div class="comments-list">
             {% for comment in book.comments.all %}
-            <div class="comment-header">
-                <strong>{{ comment.user.email| default:"Anonymous" }}</strong>
-                <span class="comment-date">{{ comment.created_at| date:"M d, Y" }}</span>
-            </div>
-            <div class="comment-text">{{ comment.content }}</div>
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <strong>{{ comment.user.email| default:"Anonymous" }}</strong>
+                        <span class="comment-date">{{ comment.created_at| date:"M d, Y" }}</span>
+                    </div>
+                    <div class="comment-text">{{ comment.content }}</div>
+                </div>
+            {% empty %}
+                <p class="no-comments">No comments yet. Be the first to comment!</p>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p class="no-comments">No comments yet. Be the first to comment!</p>
-        {% endfor %}
-    </div>
 
             <!-- Comment Form -->
             <div class="comment-form-container">

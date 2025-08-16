@@ -1,70 +1,122 @@
-html, body{
+/* ============================================================================
+   PROJECTCV STYLESHEET
+   A well-organized CSS file for the ProjectCV Django application
+   ============================================================================ */
+
+/* ============================================================================
+   1. BASE STYLES & RESET
+   ============================================================================ */
+
+html, body {
     width: 100%;
     height: 100%;
     margin: 0;
 }
-nav{
+
+/* ============================================================================
+   2. NAVIGATION STYLES
+   ============================================================================ */
+
+/* Base Navigation */
+nav {
     width: 100%;
     height: 100px;
     background-color: #596259;
     color: white;
 }
-.flex_box{
+
+.flex_box {
     width: 100%;
     height: 100px;
     display: flex;
     justify-content: center;
 }
-.flex_box a{
-    text-decoration: none;
-    color: white;
 
-}
-.flex_box a:hover{
+.flex_box a {
     text-decoration: none;
     color: white;
 }
-.nav_item{
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+
+.flex_box a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+/* Navigation Items */
+.nav_item {
+    margin: 5px;
     background-color: #b2d48d;
-    height: 80px;
-    width: 100px;
+    height: 60px;
+    width: 80px;
     text-align: center;
-    line-height: 80px;
+    line-height: 60px;
     vertical-align: middle;
     color: white;
     display: inline-block;
     transition: background 0.3s ease-in-out;
     border-radius: 15px;
+    font-size: 0.9rem;
 }
+
 .nav_item:hover {
     color: white;
     background: radial-gradient(circle, #b2d48d, #81d318, #4caf50);
 }
+
 .nav_item a {
     text-decoration: none;
     color: inherit;
 }
-.content{
+
+/* ============================================================================
+   3. LAYOUT & CONTENT
+   ============================================================================ */
+
+.content {
     width: 90%;
+    max-width: 1200px;
     margin: auto;
     margin-top: 80px;
     margin-bottom: 40px;
+    padding: 0 15px;
 }
 
-/* Book Detail Page Styles */
-.book-detail-container{
-    display: grid;
-    grid-template-columns: 1fr 450px;
-    gap: 30px;
-    min-height: 95vh; /* full viewport heaight */
-    max-height: 95vh;
-    padding: 10px;
-    max-width: 1700px;
-    margin: 0 auto;
+/* ============================================================================
+   4. FORMS & LOGIN
+   ============================================================================ */
 
+.login_form {
+    text-align: center;
+}
+
+.login-form form {
+    display: inline-block;
+    text-align: left;
+}
+
+.login-form button {
+    display: block;
+    margin: 15px auto 0 auto;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #596259;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* ============================================================================
+   5. BOOK DETAIL PAGE STYLES
+   ============================================================================ */
+
+/* Main Container */
+.book-detail-container {
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .left-content {
@@ -73,22 +125,19 @@ nav{
     gap: 30px;
 }
 
-.book-main-section{
+/* Book Main Section Layout */
+.book-main-section {
     display: grid;
-    grid-template-columns:  300px 1fr 1fr;
+    grid-template-columns: 300px 1fr 1fr;
     grid-template-rows: auto auto auto;
     gap: 20px;
     align-items: start;
 }
 
+/* Book Image */
 .book-image-container {
     grid-row: 1 / 2;
     grid-column: 1 / 2;
-}
-
-.book-blurb-container {
-    grid-row: 1 / 3;
-    grid-column: 3 / 3;
 }
 
 .book-cover {
@@ -117,6 +166,7 @@ nav{
     margin-bottom: 10px;
 }
 
+/* Book Details */
 .book-details-container {
     grid-row: 1 / 2;
     grid-column: 2 / 4;
@@ -130,7 +180,7 @@ nav{
 }
 
 .book-author {
-    color:#666;
+    color: #666;
     margin-bottom: 15px;
 }
 
@@ -151,41 +201,35 @@ nav{
     margin-right: 5px;
 }
 
-.social-links {
-    grid-row: 2 / 3;
-    grid-column: 1 / 2;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #dee2e6;
-    align-items: flex-start;
+/* Book Blurb */
+.book-blurb-container {
+    grid-row: 1 / 3;
+    grid-column: 3 / 3;
 }
 
-.social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color:white;
-    text-decoration: none;
-    transition: transform 0.3s ease;
-    font-size:1.5rem;
+.book-blurb-frame {
+    border: 2px solid #b2d48d;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.social-link:hover {
-    transform: scale(1.1);
-    text-decoration: none;
-    color:white;
+.book-blurb-frame h4 {
+    color: #596259;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.3rem;
 }
 
-.social-link.facebook { background-color: #1877f2; }
-.social-link.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2743, #bc1888); }
-.social-link.amazon { background-color: #ff9900; }
+.book-blurb-text {
+    text-align: justify;
+    line-height: 1.6;
+    color: #333;
+    font-size: 1rem;
+}
 
+/* Author Bio */
 .author-bio-container {
     position: relative;
     grid-row: 2 / 3;
@@ -197,7 +241,6 @@ nav{
     z-index: 1;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 20px;
     border-top: 1px solid #dee2e6;
 }
 
@@ -242,32 +285,50 @@ nav{
     color: #6c757d;
 }
 
-.book-blurb-frame {
-    border: 2px solid #b2d48d;
-    border-radius: 12px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.book-blurb-frame h4 {
-    color: #596259;
-    margin-bottom: 15px;
-    text-align: center;
-    font-size: 1.3rem;
-}
-
-.book-blurb-text {
-    text-align: justify;
-    line-height: 1.6;
-    color: #333;
-    font-size: 1rem;
-}
-
 .author-bio-text {
     text-align: justify;
     line-height: 1.6;
 }
+
+/* Social Links */
+.social-links {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+    align-items: flex-start;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.social-link:hover {
+    transform: scale(1.1);
+    text-decoration: none;
+    color: white;
+}
+
+.social-link.facebook { background-color: #1877f2; }
+.social-link.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2743, #bc1888); }
+.social-link.amazon { background-color: #ff9900; }
+
+/* ============================================================================
+   6. COMMENTS SECTION
+   ============================================================================ */
 
 .comments-section {
     width: 400px;
@@ -316,11 +377,7 @@ nav{
     padding: 20px;
 }
 
-.comment-from-container {
-    border-top: 1px solid #dee2e6;
-    padding-top: 15px;
-}
-
+/* Comment Form */
 .comment-form-container {
     border-top: 1px solid #dee2e6;
     padding-top: 15px;
@@ -359,8 +416,26 @@ nav{
     background-color: #e9ecef;
 }
 
+/* Custom Scrollbar for Comments */
+.comments-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+    background: #b2d48d;
+    border-radius: 3px;
+}
+
+.comments-list::-webkit-scrollbar-thumb:hover {
+    background: #9bc470;
+}
+
+/* ============================================================================
+   7. BUTTONS & INTERACTIVE ELEMENTS
+   ============================================================================ */
+
 .btn {
-    padding:8px 16px;
+    padding: 8px 16px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -376,44 +451,64 @@ nav{
     background-color: #4a5249;
 }
 
-/* Custom Scrollbar for Comments */
-.comments-list::-webkit-scrollbar {
-    width: 6px;
+/* ============================================================================
+   8. FOOTER
+   ============================================================================ */
+
+footer {
+    width: 100%;
+    height: 70px;
+    background-color: #596259;
+    text-align: center;
+    line-height: 70px;
+    vertical-align: middle;
+    bottom: 0;
 }
 
-.comments-list::-webkit-scrollbar-thumb {
-    background: #b2d48d;
-    border-radius: 3px;
-}
+/* ============================================================================
+   9. RESPONSIVE DESIGN - MOBILE FIRST APPROACH
+   ============================================================================ */
 
-.comments-list::-webkit-scrollbar-thumb:hover {
-    background: #9bc470;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .book-main-section {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
+/* Small Mobile Devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .nav_item {
+        width: 60px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 0.7rem;
+        margin: 2px;
     }
 
-    .book-blurb-container {
+    nav {
+        height: auto;
+        min-height: 50px;
+    }
+
+    .flex_box {
+        height: auto;
+        justify-content: space-around;
+    }
+}
+
+/* Mobile Devices (max-width: 767px) */
+@media (max-width: 767px) {
+    .content {
+        width: 95%;
         margin-top: 20px;
-        width: 100%;
         padding: 0 10px;
     }
 
-    .book-blurb-frame {
-        padding: 15px;
+    .book-main-section {
+        grid-template-columns: 1fr;
     }
 
-    .book-blurb-frame h4 {
-        font-size: 1.2rem;
-    }
-
-    .book-detail-container {
+    .book-details-container {
         grid-template-columns: 1fr;
         gap: 20px;
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+        text-align: center;
+        padding-left: 0;
     }
 
     .book-image-container {
@@ -422,57 +517,414 @@ nav{
         text-align: center;
     }
 
-    .book-details-container {
-        grid-row: 2 / 3;
+    .book-blurb-container {
+        grid-row: 3 / 4;
         grid-column: 1 / 2;
-        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+        padding: 0 10px;
     }
 
     .author-bio-container {
+        grid-row: 4 / 5;
+        grid-column: 1 / 2;
         width: 100%;
         margin: 0;
         padding: 0 10px;
     }
 
-    .author-bio-frame {
-        padding: 15px;
-    }
-
     .social-links {
-        grid-row: 3 / 4;
+        grid-row: 5 / 6;
         grid-column: 1 / 2;
         justify-content: center;
-    }
-
-    .book-bottom-section {
-        grid-template-columns: 1fr;
-    }
-
-    .left-content {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        max-height: 85vh;
-        overflow-y: auto;
+        flex-direction: row;
+        gap: 15px;
     }
 
     .comments-section {
-        order: 2;
         width: 100%;
-        position: static;
+        margin-top: 20px;
+        height: auto;
+        max-height: 300px;
+        padding: 15px;
     }
 
-    .coments-list {
-        max-height: 300px
+    .comments-list {
+        max-height: 300px;
+    }
+
+    .book-cover, .book-placeholder {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .book-placeholder {
+        width: 200px;
+        height: 280px;
     }
 }
 
-footer{
-    width: 100%;
-    height: 70px;
-    background-color: #596259;
-    text-align: center;
-    line-height: 70px;
-    vertical-align: middle;
-    bottom: 0;
+/* Tablet Devices (min-width: 768px) */
+@media (min-width: 768px) {
+    .nav_item {
+        height: 70px;
+        line-height: 70px;
+        min-width: 100px;
+        font-size: 1rem;
+    }
+
+    nav {
+        height: 60px;
+    }
+
+    .flex_box {
+        height: 60px;
+        flex-wrap: wrap;
+        padding: 5px;
+    }
+}
+
+/* Desktop Devices (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .nav_item {
+        width: 70px;
+        height: 70px;
+        line-height: 100px;
+        font-size: 1rem;
+    }
+
+    nav {
+        height: 80px;
+    }
+
+    .flex_box {
+        height: 80px;
+    }
+
+    .book-main-section {
+        grid-template-columns: 250px 1fr 1fr;
+    }
+
+    .book-cover {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+    }
+
+    .book-placeholder {
+        width: 200px;
+        height: 280px;
+    }
+
+    .book-detail-container {
+        grid-template-columns: 1fr 300px;
+    }
+
+    .comments-section {
+        width: 300px;
+    }
+}
+
+/* Large Desktop (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .book-detail-container {
+        grid-template-columns: 1fr 350px;
+        max-width: 100%;
+    }
+
+    .comments-section {
+        width: 350px;
+    }
+}
+
+/* Extra Large Desktop (min-width: 1441px and max-width: 1919px) */
+@media (min-width: 1441px) and (max-width: 1919px) {
+    .nav_item {
+        width: 110px;
+        height: 85px;
+        line-height: 85px;
+        font-size: 1.05rem;
+        margin: 10px;
+    }
+
+    nav {
+        height: 105px;
+    }
+
+    .flex_box {
+        height: 105px;
+        padding: 10px;
+    }
+
+    .content {
+        width: 90%;
+        max-width: 1600px;
+        margin-top: 105px;
+        padding: 0 20px;
+    }
+
+    .book-detail-container {
+        grid-template-columns: 1fr 480px;
+        gap: 35px;
+        max-width: 1800px;
+        padding: 20px;
+    }
+
+    .book-main-section {
+        grid-template-columns: 320px 1fr 1fr;
+        gap: 25px;
+    }
+
+    .book-cover {
+        max-width: 320px;
+    }
+
+    .book-placeholder {
+        width: 320px;
+        height: 448px;
+    }
+
+    .book-title {
+        font-size: 2.4rem;
+    }
+
+    .book-author {
+        font-size: 1.5rem;
+    }
+
+    .comments-section {
+        width: 480px;
+        padding: 22px;
+        height: 80vh;
+        max-height: 80vh;
+    }
+
+    .book-blurb-frame, .author-bio-frame {
+        padding: 22px;
+    }
+}
+
+/* Ultra Large Desktop (min-width: 1920px and max-width: 2559px) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+    .nav_item {
+        width: 120px;
+        height: 90px;
+        line-height: 90px;
+        font-size: 1.1rem;
+        margin: 12px;
+    }
+
+    nav {
+        height: 115px;
+    }
+
+    .flex_box {
+        height: 115px;
+        padding: 12px;
+    }
+
+    .content {
+        width: 85%;
+        max-width: 1800px;
+        margin-top: 115px;
+        padding: 0 25px;
+    }
+
+    .book-detail-container {
+        grid-template-columns: 1fr 500px;
+        gap: 40px;
+        max-width: 2000px;
+        padding: 25px;
+    }
+
+    .book-main-section {
+        grid-template-columns: 350px 1fr 1fr;
+        gap: 30px;
+    }
+
+    .book-cover {
+        max-width: 350px;
+    }
+
+    .book-placeholder {
+        width: 350px;
+        height: 490px;
+    }
+
+    .book-title {
+        font-size: 2.6rem;
+    }
+
+    .book-author {
+        font-size: 1.6rem;
+    }
+
+    .book-publisher, .book-genre, .book-info, .book-rating {
+        font-size: 1.2rem;
+    }
+
+    .social-link {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+
+    .comments-section {
+        width: 500px;
+        padding: 25px;
+        height: 82vh;
+        max-height: 82vh;
+    }
+
+    .book-blurb-frame, .author-bio-frame {
+        padding: 25px;
+    }
+
+    .book-blurb-text, .author-bio-text {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+}
+
+/* Ultra Wide Desktop (min-width: 2560px) */
+@media (min-width: 2560px) {
+    .nav_item {
+        width: 140px;
+        height: 100px;
+        line-height: 100px;
+        font-size: 1.2rem;
+        margin: 15px;
+    }
+
+    nav {
+        height: 130px;
+        padding: 15px;
+    }
+
+    .content {
+        width: 85%;
+        max-width: 2200px;
+        margin-top: 130px;
+        padding: 0 30px;
+    }
+
+    .book-detail-container {
+        grid-template-columns: 1fr 600px;
+        gap: 50px;
+        max-width: 2400px;
+        padding: 30px;
+    }
+
+    .book-main-section {
+        grid-template-columns: 400px 1fr 1fr;
+        gap: 40px;
+    }
+
+    .book-cover {
+        max-width: 400px;
+    }
+
+    .book-placeholder {
+        width: 400px;
+        height: 560px;
+        font-size: 1.2rem;
+    }
+
+    .book-placeholder i {
+        font-size: 4rem;
+        margin-bottom: 15px;
+    }
+
+    .book-title {
+        font-size: 3rem;
+        margin-bottom: 25px;
+    }
+
+    .book-author {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .book-publisher, .book-genre, .book-info, .book-rating {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .social-link {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
+    .author-photo, .author-photo-placeholder {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 20px;
+    }
+
+    .author-photo-placeholder i {
+        font-size: 3rem;
+    }
+
+    .comments-section {
+        width: 600px;
+        padding: 30px;
+        height: 85vh;
+        max-height: 85vh;
+    }
+
+    .comments-section h4 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    .comment-list {
+        max-height: calc(80vh - 200px);
+        padding-right: 15px;
+    }
+
+    .comment-item {
+        padding: 18px;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+    }
+
+    .comment-header {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .book-blurb-frame, .author-bio-frame {
+        padding: 30px;
+        border-radius: 15px;
+        border-width: 3px;
+    }
+
+    .book-blurb-frame h4, .author-bio-frame h4 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+
+    .book-blurb-text, .author-bio-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    .comment-input {
+        padding: 12px 18px;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .emoji {
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        border-radius: 8px;
+    }
 }
