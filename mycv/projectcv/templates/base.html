@@ -36,10 +36,11 @@
     {% endblock %}
     </div>
     <footer>
-        Footer
+        <div class="footer-content"></div>
+        <span>Footer</span>
+        <div class="text-center">{{request.user.email}}</div>
     </footer>
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
-<div class="text-center">{{request.user.email}}</div>
 </html>
