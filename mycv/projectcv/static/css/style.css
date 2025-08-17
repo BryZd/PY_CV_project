@@ -133,9 +133,9 @@ nav {
 /* Book Main Section Layout */
 .book-main-section {
     display: grid;
-    grid-template-columns: 300px 1fr 1fr;
+    grid-template-columns: minmax(250px, 300px) 1fr 1fr;
     grid-template-rows: auto auto auto;
-    gap: 20px;
+    gap: clamp(15px, 3vw, 20px);
     align-items: start;
 }
 
@@ -275,7 +275,7 @@ nav {
 .author-bio-frame {
     border: 2px solid #b2d48d;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     background-color: #f8f9fa;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     max-height: 700px;
@@ -295,7 +295,7 @@ nav {
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    margin: 0 auto 15px;
+    margin: 0 auto 10px;
     border: 3px solid #b2d48d;
 }
 
@@ -322,6 +322,7 @@ nav {
     max-height: 300px;
     overflow-y: auto;
     flex: 1;
+    padding-right: 10px;
 }
 
 /* Social Links */
@@ -442,7 +443,7 @@ nav {
 .emoji {
     font-size: 1.2rem;
     cursor: pointer;
-    padding: 4px;
+    padding: 0;
     border-radius: 4px;
     transition: background-color 0.2s ease;
 }
@@ -561,7 +562,7 @@ footer {
     .flex_box {
         height: auto;
         justify-content: space-around;
-        gap: 2px
+        gap: 2px;
     }
 }
 
@@ -667,8 +668,9 @@ footer {
 /* Tablet Devices (min-width: 768px) */
 @media (min-width: 768px) {
     .nav_item {
-        height: 70px;
-        line-height: 70px;
+        width: 60px;
+        height: 40px;
+        line-height: 40px;
         min-width: 100px;
         font-size: 1rem;
     }
@@ -688,8 +690,8 @@ footer {
 @media (min-width: 1024px) {
     .nav_item {
         width: 70px;
-        height: 70px;
-        line-height: 100px;
+        height: 50px;
+        line-height: 50px;
         font-size: 1rem;
     }
 
@@ -745,9 +747,18 @@ footer {
 
 /* Large Desktop (max-width: 1200px) */
 @media (max-width: 1200px) {
+    .nav_item {
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 1rem;
+    }
+
     .book-detail-container {
         grid-template-columns: 1fr 280px;
         max-width: 100%;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
     }
 
     .comments-section {
@@ -755,12 +766,41 @@ footer {
     }
 }
 
+/* Medium-Large Desktop (1201px-1440px */
+@media (min-width: 1201px) and (max-width: 1440px) {
+    .book-detail-container {
+        grid-template-columns: 1fr 320px;
+        max-width: 1200px;
+        gap: 30px;
+        transition: transform 0.3s ease;
+        margin: 0 auto;
+    }
+
+    .book-main-section {
+        grid-template-columns: 280px 1fr 1fr;
+        gap: 22px;
+        transition: transform 0.3s ease;
+    }
+
+    .comments-section {
+        width: 320px;
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .book-cover, .book-placeholder {
+        max-width: 280px;
+    }
+
+    .book-placeholder {}
+}
+
 /* Extra Large Desktop (min-width: 1441px and max-width: 1919px) */
 @media (min-width: 1441px) and (max-width: 1919px) {
     .nav_item {
         width: 110px;
-        height: 85px;
-        line-height: 85px;
+        height: 65px;
+        line-height: 65px;
         font-size: 1.05rem;
         margin: 10px;
     }
@@ -787,6 +827,7 @@ footer {
         padding: 22px;
         max-height: 85vh;
         min-height: 650px;
+        transition: transform 0.3s ease;
     }
 
     .comments-list {
@@ -798,11 +839,13 @@ footer {
         gap: 35px;
         max-width: 1800px;
         padding: 20px;
+        transition: transform 0.3s ease;
     }
 
     .book-main-section {
         grid-template-columns: 320px 1fr 1fr;
         gap: 25px;
+        transition: transform 0.3s ease;
     }
 
     .book-cover {
@@ -841,6 +884,7 @@ footer {
         padding: 22px;
         height: 80vh;
         max-height: 80vh;
+        transition: transform 0.3s ease;
     }
 
     .book-blurb-frame, .author-bio-frame {
@@ -852,8 +896,8 @@ footer {
 @media (min-width: 1920px) and (max-width: 2559px) {
     .nav_item {
         width: 120px;
-        height: 90px;
-        line-height: 90px;
+        height: 70px;
+        line-height: 70px;
         font-size: 1.1rem;
         margin: 12px;
     }
@@ -880,11 +924,13 @@ footer {
         gap: 40px;
         max-width: 2000px;
         padding: 25px;
+        transition: transform 0.3s ease;
     }
 
     .book-main-section {
         grid-template-columns: 350px 1fr 1fr;
         gap: 30px;
+        transition: transform 0.3s ease;
     }
 
     .book-cover {
@@ -908,7 +954,7 @@ footer {
     .book-blurb-text {
         max-height: 420px;
         font-size: 1.1rem;
-        line-height: 1.7;
+        line-height: 1.2;
         padding-right: 15px;
     }
 
@@ -935,15 +981,16 @@ footer {
         padding: 25px;
         height: 90vh;
         max-height: 90vh;
+        transition: transform 0.3s ease;
     }
 
     .book-blurb-frame, .author-bio-frame {
-        padding: 25px;
+        padding: 20px;
     }
 
     .book-blurb-text, .author-bio-text {
         font-size: 1.1rem;
-        line-height: 1.7;
+        line-height: 1.5;
     }
 
     footer {
@@ -962,6 +1009,7 @@ footer {
         padding: 25px;
         max-height: 82vh;
         min-height: 630px;
+        transition: transform 0.3s ease;
     }
 
     .comments-list {
@@ -1020,13 +1068,15 @@ footer {
         gap: 50px;
         max-width: 2400px;
         padding: 30px;
-        min-height: calc(100vh - 220px)
+        min-height: calc(100vh - 220px);
+        transition: transform 0.3s ease;
     }
 
     .book-main-section {
         grid-template-columns: 400px 1fr 1fr;
         gap: 40px;
         min-height: 600px;
+        transition: transform 0.3s ease;
     }
 
     .book-cover {
@@ -1114,7 +1164,7 @@ footer {
 
     .author-bio-text {
         font-size: 1.2rem;
-        line-height: 1.8;
+        line-height: 1.6;
         max-height: 200px;
         flex: 1;
         padding-right: 10px;
@@ -1149,6 +1199,7 @@ footer {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
+        transition: transform 0.3s ease;
     }
 
     .comments-section h4 {
@@ -1189,7 +1240,7 @@ footer {
 
     .book-blurb-text, .author-bio-text {
         font-size: 1.2rem;
-        line-height: 1.8;
+        line-height: 1.6;
     }
 
     .comment-input {
