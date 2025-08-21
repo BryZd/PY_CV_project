@@ -325,7 +325,7 @@ nav {
     padding-right: 10px;
 }
 
-/* Social Links */
+/* Social Links - Icons with Button Fallback*/
 .social-links {
     grid-row: 2 / 3;
     grid-column: 1 / 2;
@@ -341,25 +341,86 @@ nav {
 .social-link {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color: white;
+    gap: 8px;
     text-decoration: none;
     transition: transform 0.3s ease;
     font-size: 1.5rem;
+    color: #495057;
 }
 
 .social-link:hover {
     transform: scale(1.1);
     text-decoration: none;
-    color: white;
 }
 
-.social-link.facebook { background-color: #1877f2; }
-.social-link.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2743, #bc1888); }
-.social-link.amazon { background-color: #ff9900; }
+/* Icon styling - primary display*/
+.social-icon {
+    font-size: 2rem;
+    transition: color 0.3s ease;
+}
+
+/* Text styling - hidden by default, shows as fallback */
+.social-text {
+    display: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Brand-specific icon colors */
+.social-link.facebook .social-icon { color: #1877f2; }
+.social-link.instagram .social-icon { color: #e4405f; }
+.social-link.amazon .social-icon { color: #ff9900; }
+
+/*Brand-specific button fallback colors */
+.social-link.facebook .social-text { background-color: #1877f2; }
+.social-link.instagram .social-text { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2743, #bc1888); }
+.social-link.amazon .social-text { background-color: #ff9900; }
+
+/* Hover effects */
+.social-link:hover .social-icon {
+    transform: rotate(360deg);
+}
+
+.social-link:hover .social-text {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Fallback detection -when FontAwesome fails to load */
+.social-icon:before {
+    content: "";
+}
+
+/* This target when FontAwesome icons fail to load */
+.social-icon:not([class*="fa-"]):before,
+.social-icon.fa:not([class*="fa-"]):before {
+    display: none;
+}
+
+/* Show text when icon fails */
+@supports not (font-family: "Font Awesome 6 Brands") {
+    .social-text {
+        display: inline-block;
+    }
+    .social-icon {
+        display: none;
+    }
+}
+
+/* Alternative fallback using JavaScript direction */
+.no-fontawesome .social-icon {
+    display: none;
+}
+
+.no-fontawesome .social-text {
+    display: inline-block;
+}
+
 
 /* ============================================================================
    6. COMMENTS SECTION

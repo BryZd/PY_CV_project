@@ -92,21 +92,25 @@
 
             <!-- Social Media Links -->
             <div class="social-links">
+                {% load static %}
                 {% if book.facebook_url %}
-                    <a href="{{ book.facebook_url }}" class="social-link facebook" title="Facebook" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-facebook-f"></i>
+                    <a href="{{ book.amazon_url }}" class="social-link amazon" title="Amazon" target="_blank" rel="noopener noreferrer">
+                        <img src="{% static 'projectcv/icons/facebook.png' %}" alt="Facebook" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="social-text">Amazon</span>
                     </a>
                 {% endif %}
 
                 {% if book.instagram_url %}
                     <a href="{{ book.instagram_url }}" class="social-link instagram" title="Instagram" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-instagram"></i>
+                        <img src="{% static 'project/icons/instagram.png' %}" alt="Instagram" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="social-text">Instagram</span>
                     </a>
                 {% endif %}
 
                 {% if book.amazon_url %}
                     <a href="{{ book.amazon_url }}" class="social-link amazon" title="Amazon" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-amazon"></i>
+                        <img src="{% static 'project/icons/amazon.png' %}" alt="Amazon" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="social-text">Amazon</span>
                     </a>
                 {% endif %}
             </div>
@@ -194,4 +198,31 @@ document.querySelectorAll('.emoji').forEach(emoji => {
     });
 });
 </script>
+
+<script>
+// Detect if  FontAwesome loaded successfully
+document.addEventListener('DOMContentLoaded', function() {
+    // Test if FontAwesome is loaded by checking if the icon has content
+    const testIcon = document.createElement('i');
+    testIcon.className = 'fas fa-facebook-f';
+    testIcon.style.position = 'absolute';
+    testIcon.style.visibility = 'hidden';
+    document.body.appendChild(testIcon);
+
+    // Check if the icon has proper styling after a brief delay
+    setTimeout(function() {
+        const computerStyle = window.getComputerStyle(testIcon, ':before');
+        const hasContent = computedStyle.content && computedStyle.content !=='none' && computedStyle.content !== '""';
+
+        if (!hasContent) {
+            // FontAwesome failed to load, add fallback class
+            document.body.classList.add('no-font-awesome');
+        }
+
+        // Clean up test element
+        document.body.removeChild(testIcon);
+    }, 100);
+});
+</script>
+
 {% endblock %}
