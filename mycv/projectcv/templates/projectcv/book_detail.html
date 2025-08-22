@@ -94,22 +94,22 @@
             <div class="social-links">
                 {% load static %}
                 {% if book.facebook_url %}
-                    <a href="{{ book.amazon_url }}" class="social-link amazon" title="Amazon" target="_blank" rel="noopener noreferrer">
+                    <a href="{{ book.facebook_url }}" class="social-link facebook" title="Facebook" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'projectcv/icons/facebook.png' %}" alt="Facebook" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                        <span class="social-text">Amazon</span>
+                        <span class="social-text">Facebook</span>
                     </a>
                 {% endif %}
 
                 {% if book.instagram_url %}
                     <a href="{{ book.instagram_url }}" class="social-link instagram" title="Instagram" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'project/icons/instagram.png' %}" alt="Instagram" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <img src="{% static 'projectcv/icons/instagram.png' %}" alt="Instagram" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                         <span class="social-text">Instagram</span>
                     </a>
                 {% endif %}
 
                 {% if book.amazon_url %}
                     <a href="{{ book.amazon_url }}" class="social-link amazon" title="Amazon" target="_blank" rel="noopener noreferrer">
-                        <img src="{% static 'project/icons/amazon.png' %}" alt="Amazon" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <img src="{% static 'projectcv/icons/amazon.png' %}" alt="Amazon" class="social-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                         <span class="social-text">Amazon</span>
                     </a>
                 {% endif %}
