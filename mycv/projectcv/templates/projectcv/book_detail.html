@@ -79,13 +79,22 @@
                 {% if book.rating %}
                 <div class="book-rating">
                     <strong>Rating:</strong>
-                    {% for i in "12345"|make_list %}
-                        {% if forloop.counter <= book.rating %}
-                            <i class="fas fa-star text-warning"></i>
-                        {% else %}
-                            <i class="far fa-star text-muted"></i>
-                        {% endif %}
-                    {% endfor %}
+                    <div class="rating-stars">
+                        {% for i in "12345"|make_list %}
+                            {% if forloop.counter <= book.rating %}
+                                <img src="{% static 'projectcv/icons/star-filled.png' %}"
+                                     alt="Filled Star"
+                                     class="rating-star filled-star"
+                                     onerror="this.style.display='none';">
+                            {% else %}
+                                <img src="{% static 'projectcv/icons/star-empty.png' %}"
+                                     alt="Empty Star"
+                                     class="rating-star empty-star"
+                                     onerror="this.style.display='none';">
+                            {% endif %}
+                        {% endfor %}
+                        <span class="rating-text">({{ book.rating }}/5)</span>
+                    </div>
                 </div>
                 {% endif %}
             </div>

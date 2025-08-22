@@ -218,6 +218,42 @@ nav {
     white-space: nowrap;
 }
 
+/* Rating Stars Styling */
+.rating-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 10px;
+}
+
+.rating-star {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    transition: transform 0.2s ease;
+}
+
+.rating-star:hover {
+    transform: scale(1.1);
+}
+
+.filled-star {
+    filter: brightness(1.2);
+}
+
+.empty-star {
+    opacity: 0.4;
+    filter: grayscale(20%);
+}
+
+.rating-text {
+    margin-left: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: normal;
+}
+
 /* Book Blurb */
 .book-blurb-container {
     grid-row: 1 / 3;
@@ -355,14 +391,14 @@ nav {
 
 /* Image icon styling - primary display*/
 .social-icon-img {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     transition: color 0.3s ease;
     filter: brightness(1.2);
 }
 
 .social-icon-img:hover {
-    transform: rotate(360deg) scale(1.3);
+    transform: rotate(360deg) scale(1.1);
 }
 
 /* Text styling - hidden by default, shows as fallback */
@@ -650,6 +686,15 @@ footer {
         grid-column: 1 / 2;
         text-align: center;
         padding-left: 0;
+    }
+
+    .rating-star {
+        width: 18px;
+        height: 18px;
+    }
+
+    .rating-text {
+        font-size: 0.8rem;
     }
 
     .book-image-container {
