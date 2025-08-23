@@ -23,11 +23,12 @@
 {% endif %}
     <nav>
         <div class="flex_box">
-            <div class="nav_item"><a href="{% url 'book_index' %}">Index</a></div>
-            {% if user.is_admin %}<div class="nav_item"><a href="{% url 'registration' %}">Registration</a></div>{% endif %}
+            <div class="nav_item"><a href="{% url 'book_index' %}">The Library</a></div>
+            <!-- {% if user.is_admin %}<div class="nav_item"><a href="{% url 'registration' %}">Registration</a></div>{% endif %} -->
             {% if not user.is_authenticated %}<div class="nav_item"><a href="{% url 'login' %}">Login</a></div>{% endif %}
-            {% if user.is_authenticated %}<div class="nav_item"><a href="{% url 'logout' %}">Logout</a></div>{% endif %}
             {% if user.is_admin %}<div class="nav_item"><a href="{% url 'add_book' %}">Add Book</a></div>{% endif %}
+            {% if user.is_authenticated %}<div class="nav_item"><a href="{% url 'logout' %}">Logout</a></div>{% endif %}
+
         </div>
     </nav>
     <div class="content">
