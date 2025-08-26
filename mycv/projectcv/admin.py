@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from .models import Book, Genre, User, Tag
+from .models import Book, Genre, User, Tag, Comment, Vote
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
@@ -90,6 +90,12 @@ class BookAdmin(admin.ModelAdmin):
         return", ".join([genre.genre_name for genre in obj.genre.all()])
     get_genres.short_description = 'Genres'
 
+
+@admin.register(Vote)
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ['user', 'book', 'rating', 'created_at']
+    list_filter = ['rating', 'created_at']
+    search_fields = ['user', 'book']
 
 admin.site.register(Genre)
 admin.site.register(User, Admin)

@@ -80,22 +80,64 @@
                 <div class="book-rating">
                     <strong>Rating:</strong>
                     <div class="rating-stars">
-                        {% for i in "12345"|make_list %}
-                            {% if forloop.counter <= book.rating %}
-                                <img src="{% static 'projectcv/icons/star-filled.png' %}"
-                                     alt="Filled Star"
-                                     class="rating-star filled-star"
-                                     onerror="this.style.display='none';">
-                            {% else %}
-                                <img src="{% static 'projectcv/icons/star-empty.png' %}"
-                                     alt="Empty Star"
-                                     class="rating-star empty-star"
-                                     onerror="this.style.display='none';">
-                            {% endif %}
-                        {% endfor %}
-                        <span class="rating-text">({{ book.rating }}/5)</span>
+                        {% with display_rating=book.display_rating %}
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= display_rating %}
+                                    <img src="{% static 'projectcv/icons/star-filled.png' %}"
+                                         alt="Filled Star"
+                                        class="rating-star filled-star"
+                                        onerror="this.style.display='none';">
+                                {% else %}
+                                    <img src="{% static 'projectcv/icons/star-empty.png' %}"
+                                         alt="Empty Star"
+                                        class="rating-star empty-star"
+                                        onerror="this.style.display='none';">
+                                {% endif %}
+                            {% endfor %}
+                            <span class="rating-text">
+                                ({{ display_rating }}/5
+                                {% if vote_count > 0 %}
+                                    - {{ vote_count }} vote{{ vote_count|pluralize }}
+                                {% endif %})
+                            </span>
+                        {% endwith %}
                     </div>
                 </div>
+                {% endif %}
+
+                <!-- Voting Interface -->
+                {% if user.is_authenticated %}
+                    <div class="voting-section mt-3">
+                        <h5>Rate this book:</h5>
+                        {% if user_vote %}
+                            <p class="text-success small"> You voted: {{ user_vote.rating }}/5 stars</p>
+                        {% else %}
+                            <p class="text-muted small">You haven't rated this book yet</p>
+                        {% endif %}
+
+                        <form method="post" class="vote-form">
+                            {% csrf_token %}
+                            <div class="rating-input">
+                                {% for i in "12345"|make_list %}
+                                    <label class="star-label">
+                                        <input type="radio" name="vote-rating" value="{{ forloop.counter }}"
+                                               {% if user_vote.rating == forloop.counter %}checked{% endif %}
+                                               class="star-input">
+                                        <span class="star-display">*</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary mt-2">
+                                {% if user_vote %}Update Vote{% else %}Submit Vote{% endif %}
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="login-prompt mt-3">
+                        <p class="text-muted small">
+                            <a href="{% url 'login' %}">Login</a>to rate this book
+                        </p>
+                    </div>
                 {% endif %}
             </div>
 

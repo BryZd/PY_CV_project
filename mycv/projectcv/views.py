@@ -9,8 +9,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.views.generic import FormView
 
-from .models import Book, User, Genre
-from .forms import BookForm, UserForm, LoginForm
+from .models import Book, User, Genre, Vote, Comment
+from .forms import BookForm, UserForm, LoginForm, VoteForm
 
 
 RATING_CHOICES = [(i, i) for i in range(1, 6)]
@@ -60,14 +60,60 @@ class CurrentBook(generic.DetailView):
     model = Book
     template_name = "projectcv/book_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        book = self.get_object()
+
+        # Add voting context
+        if self.request.user.is_authenticated:
+            user_vote = book.get_user_vote(self.request.user)
+            context['user_vote'] = user_vote
+            context['vote_form'] = VoteForm(instance=user_vote)
+        else:
+            context['user_vote'] = None
+            context['vote_form'] = VoteForm()
+
+        context['average_rating'] = book.get_average_rating()
+        context['vote_count'] = book.get_vote_count()
+
+        return context
+
     def get(self, request, *args, **kwargs):
         try:
-            book = self.get_object()
+            self.object = self.get_object()
         except (Book.DoesNotExist, Http404):
             return redirect("book_index")
-        return render(request, self.template_name, {"book": book})
+        return render(request, self.template_name, self.get_context_data())
 
     def post(self, request, pk):
+        book = self.get_object()
+
+        # Handle voting
+        if 'vote_rating' in request.POST and request.user.is_authenticated:
+            rating = request.POST.get('vote_rating')
+            if rating and rating.isdigit() and 1 <= int(rating) <= 5:
+                vote, created =Vote.objects.update_or_create(
+                    user=request.user,
+                    book=book,
+                    defaults={'rating': int(rating)}
+                )
+
+                action = "updated" if not created else "added"
+                messages.success(request, f"Your vote has been {action}!")
+                return redirect("book_detail", pk=pk)
+
+        # Handele comment posting
+        if 'comment' in request.POST and request.user.is_authenticated:
+            comment_content = request.POST.get('comment', '').strip()
+            if comment_content:
+                Comment.objects.create(
+                    Book=book,
+                    user=request.user,
+                    content=comment_content
+                )
+                messages.success(request, "Comment added successfully!")
+                return redirect("book_detail", pk=pk)
+
         # Only allow admins to trigger edit/delete actions via POST
         if not request.user.is_authenticated or not request.user.is_staff:
             messages.info(request, "Only the admin can edit books.")
@@ -80,6 +126,7 @@ class CurrentBook(generic.DetailView):
             book.delete()
             return redirect("book_index")
         return redirect("book_detail", pk=pk)
+
 
 class AddBook(UserPassesTestMixin, generic.edit.CreateView):
 

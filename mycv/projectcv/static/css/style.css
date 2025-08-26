@@ -219,6 +219,52 @@ nav {
 }
 
 /* Rating Stars Styling */
+/*.book-rating-section {
+    margin:20px 0;
+}*/
+.voting-section {
+    padding:5px;
+    background-color:#f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.rating-input {
+    display: flex;
+    gap: 5px;
+    margin: 0;
+}
+
+.star-label {
+    cursor: pointer;
+}
+
+.star-input {
+    display: none;
+}
+
+.star-display {
+    font-size: 25px;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star-input:checked ~ .star-display,
+.star-label:hover .star-display,
+.star-input:hover ~ .star-label .star-display {
+    color: #ffc107;
+}
+
+.vote-form {
+    margin: 5px 0;
+}
+
+.login-prompt {
+    padding: 10px;
+    background-color: #f1f3f4;
+    border-radius: 5px;
+}
+
 .rating-stars {
     display: inline-flex;
     align-items: center;

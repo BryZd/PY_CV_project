@@ -63,7 +63,7 @@
                                 None
                             {% endif %}
                         </td>
-                        <td>{% if book.rating %}{{ book.rating }}{% else %}-{% endif %}</td>
+                        <td>{% if book.display_rating %}{{ book.display_rating }}{% else %}-{% endif %}</td>
                         <td class="text-end">
                             <a class="btn btn-sm btn-outline-info" href="{% url 'book_detail' book.id %}">View</a>
                             {% if user.is_staff %}

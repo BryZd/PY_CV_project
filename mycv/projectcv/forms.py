@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Book, Tag, User, Genre
+from .models import Book, Tag, User, Genre, Vote
 
 
 class BookForm(forms.ModelForm):
@@ -31,3 +31,11 @@ class LoginForm(forms.Form):
 
     class Meta:
         fields = ["email", "password"]
+
+class VoteForm(forms.ModelForm):
+    class Meta:
+        model = Vote
+        fields = ["rating"]
+        widgets = {
+            'rating': forms.RadioSelect(choices=[(i, f'{i} Star{"s" if i != 1 else ""}') for i in range(1, 6)])
+        }

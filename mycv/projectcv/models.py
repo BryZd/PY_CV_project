@@ -53,6 +53,36 @@ class Book(models.Model):
         verbose_name = "Book"
         verbose_name_plural = "Books"
 
+    def get_average_rating(self):
+        """Calculate average rating from votes"""
+        votes = self.vote_set.all()
+        if votes.exists():
+            total = sum(vote.rating for vote in votes)
+            return round(total / votes.count(), 1) # Round to 1 decimal place
+        return None
+
+    def get_vote_count(self):
+        """Get total number of votes"""
+        return self.vote_set.count()
+
+    def get_user_vote(self, user):
+        """Get specific user's vote for this book"""
+        if user.is_authenticated:
+            try:
+                return self.vote_set.get(user=user)
+            except Vote.DoesNotExist:
+                return None
+        return None
+
+    @property
+    def display_rating(self):
+        """Get rating for display - prioritize average of votes over manual rating"""
+        avg_rating = self.get_average_rating()
+        if avg_rating is not None:
+            return avg_rating
+        return self.rating # Fallback to manual rating if no votes
+
+
 
 class UserManager(BaseUserManager):
     # create user
@@ -107,3 +137,18 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # 1-5 stars
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'book') # Ensures one vote per user per book
+        verbose_name = 'Vote'
+        verbose_name_plural = 'Votes'
+
+    def __str__(self):
+        return f"{self.user.email} voted {self.rating}/5 for {self.book.title}"
