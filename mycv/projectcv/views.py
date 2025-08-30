@@ -101,13 +101,16 @@ class CurrentBook(generic.DetailView):
                 action = "updated" if not created else "added"
                 messages.success(request, f"Your vote has been {action}!")
                 return redirect("book_detail", pk=pk)
+            else:
+                messages.error(request, "Please select a valid rating (1-5 stars).")
+                return redirect("book_detail", pk=pk)
 
         # Handele comment posting
         if 'comment' in request.POST and request.user.is_authenticated:
             comment_content = request.POST.get('comment', '').strip()
             if comment_content:
                 Comment.objects.create(
-                    Book=book,
+                    book=book,
                     user=request.user,
                     content=comment_content
                 )

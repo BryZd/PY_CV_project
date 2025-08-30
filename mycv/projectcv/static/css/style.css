@@ -219,9 +219,6 @@ nav {
 }
 
 /* Rating Stars Styling */
-/*.book-rating-section {
-    margin:20px 0;
-}*/
 .voting-section {
     padding:5px;
     background-color:#f8f9fa;
@@ -298,6 +295,63 @@ nav {
     font-size: 0.9rem;
     color: #666;
     font-weight: normal;
+}
+
+/* Modal Rating Stars */
+.star-rating-modal {
+    display: flex;
+    justyfy-content: center;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.star-label-model {
+    cursor: pointer;
+    font-size: 2rem;
+    color: #ddd;
+    transition: color 0.2s ease;
+}
+
+.star-label-modal:hover,
+.star-label-modal:hover ~ .star-label-modal {
+    color: #ffc107;
+}
+
+.star-input-modal {
+    display: none;
+}
+
+.star-input-modal:checked ~ .star-display-modal,
+.star-label-modal:has(.star-input-modal:checked) .star-display-modal {
+    color: #ffc107;
+}
+
+.star-display-modal {
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+/* Hover effect for better UX */
+.star-label-modal:hover .star-display-modal {
+    color: #ffc107;
+    transform: scale(1.1);
+}
+
+.madal-content {
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    border-radius: 0 0 10px 10px;
 }
 
 /* Book Blurb */
