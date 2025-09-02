@@ -17,22 +17,18 @@
    2. NAVIGATION STYLES
    ============================================================================ */
 
-/* Base Navigation */
+/* Base Navigation - Scales proportionally */
 nav {
-    width: 100%;
-    height: 100px;
+    height: 8vh; /* Always 8% of viewport height */
     background-color: #596259;
-    color: white;
 }
 
 .flex_box {
-    width: 100%;
-    height: 100px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
+    gap: 1vw;
 }
 
 .flex_box a {
@@ -47,20 +43,19 @@ nav {
 
 /* Navigation Items */
 .nav_item {
-    margin: 5px;
     background-color: #b2d48d;
-    height: 60px;
-    width: 80px;
+    height: 5vh; /* Height scales with viewport */
+    width: 8vw; /* Width scales with viewport */
+    min-width: 60px; /* Minimum readable size */
     text-align: center;
-    line-height: 90px;
-    vertical-align: middle;
-    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.3s ease-in-out;
-    border-radius: 15px;
-    font-size: 0.9rem;
+    border-radius: 1vw;
+    font-size: 1.2vw; /* Font size scales */
+    min-font-size: 0.8rem; /* Minimum readable font */
+    max-font-size: 1.2rem; /* Maximum readable font */
 }
 
 .nav_item:hover {
@@ -118,10 +113,12 @@ nav {
 /* Main Container */
 .book-detail-container {
     display: grid;
-    gap: 20px;
-    padding: 20px;
-    max-width: 1400px;
-    margin: -120px auto 0 auto;
+    grid-template-columns: 1fr 25vw; /* Comments section always 25% of viewport width */
+    gap: 2vw; /* Gap scales with viewport */
+    padding: 2vw; /* Padding scales with viewport */
+    max-width: 95vw; /* Always 95% of viewport width */
+    margin: 5vh auto 10vh auto; /* Top margin 5% of viewport height, bottom 10% */
+    min-height: 80vh; /* Minimum height 80% of viewport */
 }
 
 .left-content {
@@ -133,81 +130,69 @@ nav {
 /* Book Main Section Layout */
 .book-main-section {
     display: grid;
-    grid-template-columns: minmax(250px, 300px) 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: clamp(15px, 3vw, 20px);
+    grid-template-columns: 20vw 1fr 25vw; /* Fixed proportions: image 20%, details flexible, blurb 25% */
+    grid-template-rows: auto auto; /* Two rows for mobile stacking if needed */
+    gap: 2vw; /* Consistent gap */
     align-items: start;
 }
 
-/* Book Image */
+/* Book Image - Always same proportion */
 .book-image-container {
-    grid-row: 1 / 2;
-    grid-column: 1 / 2;
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
 }
 
-.book-cover {
+.book-cover, .book-placeholder {
     width: 100%;
-    max-height: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    height: 35vh; /* Height always 35% of viewport height */
+    object-fit: cover; /* Maintains aspect ratio */;
+    border-radius: 1vw;
 }
 
 .book-placeholder {
-    width: 300px;
-    height: 420px;
     background-color: #f8f9fa;
-    border: 3px dashed #dee2e6;
+    border: 0.2vw dashed #dee2e6;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
     color: #6c757d;
 }
 
 .book-placeholder i {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 4vw; /* Icon size scales with viewport */
+    margin-bottom: 1vh;
 }
 
-/* Book Details */
+/* Book Details - Always same proportion */
 .book-details-container {
-    grid-row: 1 / 2;
-    grid-column: 2 / 3;
-    padding-left: 20px;
-    padding-right: 20px;
-    max-width: 350px;
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0 2vw;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
 .book-title {
     color: #596259;
-    margin-bottom: 15px;
-    font-size: 2.2rem;
+    margin-bottom: 1.5vh;
+    font-size: 3.5vw; /*Title size scales with viewport */
+    line-height: 1.2;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    hyphens: auto;
 }
 
 .book-author {
     color: #666;
-    margin-bottom: 15px;
+    margin-bottom: 1.5vh;
+    font-size: 2.2vw; /* Author size scale */
 }
 
-.book-publisher {
-    color: #666;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    font-style: italic;
-}
-
-.book-genre, .book-info, .book-rating {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    line-height: 1.8;
+.book-publisher, .book-genre, .book-info, .book-rating {
+    margin-bottom: 1vh;
+    font-size: 1.6vw; /* Info text scales */
+    line-height: 1.4;
 }
 
 .badge {
@@ -354,43 +339,32 @@ nav {
     border-radius: 0 0 10px 10px;
 }
 
-/* Book Blurb */
+/* Book Blurb - Always same proportion */
 .book-blurb-container {
-    grid-row: 1 / 3;
-    grid-column: 3 / 3;
-    height: fit-content;
-    max-height: 500px;
+    grid-column: 3;
+    grid-row: 1;
 }
 
 .book-blurb-frame {
-    border: 2px solid #b2d48d;
-    border-radius: 12px;
-    padding: 20px;
+    height: 35vh; /*Same height as image */
+    overflow-y: auto;
+    border: 0.1vw solid #b2d48d;
+    border-radius: 1vw;
+    padding: 1.5vw;
     background-color: #f8f9fa;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    height: 100%;
-    max-height: 450px;
-    display: flex;
-    flex-direction: column;
 }
 
 .book-blurb-frame h4 {
     color: #596259;
-    margin-bottom: 15px;
-    text-align: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
+    margin-bottom: 1vh;
+    font-size: 2vw;
 }
 
 .book-blurb-text {
-    text-align: justify;
+    font-size: 1.4vw;
     line-height: 1.6;
     color: #333;
-    font-size: 1rem;
-    overflow-y: auto;
-    flex: 1;
-    padding-right: 10px;
-    max-height: 350px;
+
 }
 
 /* Author Bio */
@@ -556,19 +530,17 @@ nav {
 
 
 /* ============================================================================
-   6. COMMENTS SECTION
+   6. COMMENTS SECTION - Always same proportion
    ============================================================================ */
 
 .comments-section {
-    width: 300px;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    height: auto;
-    max-height: 85vh;
-    min-height: 600px;
+    width: 100%;
+    height: 80vh; /* Always 80% of viewport height */
+    overflow-y: auto;
+    border: 0.1vw solid #dee2e6;
+    border-radius: 1vw;
+    padding: 1.5vw;
+    background-color: #fff;
 }
 
 .comments-section h4 {
@@ -704,14 +676,12 @@ html,body {
 }
 
 footer {
-    width: 100%;
-    height: 70px;
+
+    height: 6vh; /* Always 6% of viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #596259;
-    text-align: center;
-    line-height: 70px;
-    vertical-align: middle;
-    margin-top: auto;
-    flex-shrink: 0;
 }
 
 .footer-content {
@@ -726,7 +696,9 @@ footer {
 
 .footer-text {
     color: white;
-    font-size: 1rem;
+    font-size: 1.5vw;
+    min-font-size: 0.9rem;
+    max-font-size: 1.1rem;
 }
 
 .user-info {
@@ -738,728 +710,19 @@ footer {
    9. RESPONSIVE DESIGN - MOBILE FIRST APPROACH
    ============================================================================ */
 
-/* Small Mobile Devices (max-width: 480px) */
-@media (max-width: 480px) {
-    .nav_item {
-        min-width: 60px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 0.7rem;
-        margin: 0;
-    }
-
-    nav {
-        height: auto;
-        min-height: 50px;
-    }
-
-    .flex_box {
-        height: auto;
-        justify-content: space-around;
-        gap: 2px;
-    }
-}
-
-/* Mobile Devices (max-width: 767px) */
-@media (max-width: 767px) {
-    .content {
-        width: 95%;
-        margin-top: 20px;
-        padding: 0 10px;
-        flex: 1;
-    }
-
-    footer {
-        height: 50px;
-        line-height: 50px;
-        font-size: 0.9rem;
-    }
-
-    .book-main-section {
-        grid-template-columns: 1fr;
-    }
-
-    .book-details-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        grid-row: 2 / 3;
-        grid-column: 1 / 2;
-        text-align: center;
-        padding-left: 0;
-    }
-
-    .rating-star {
-        width: 18px;
-        height: 18px;
-    }
-
-    .rating-text {
-        font-size: 0.8rem;
-    }
-
-    .book-image-container {
-        grid-row: 1 / 2;
-        grid-column: 1 / 2;
-        text-align: center;
-    }
-
-    .book-blurb-container {
-        grid-row: 3 / 4;
-        grid-column: 1 / 2;
-        margin-top: 20px;
-        width: 100%;
-        padding: 0 10px;
-        max-height: 300px;
-    }
-
-    .book-blurb-frame {
-        max-height: 280px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .book-blurb-text {
-        max-height: 200px;
-        overflow-y: auto;
-        padding-right: 10px;
-        flex: 1;
-    }
-
-    .author-bio-container {
-        grid-row: 4 / 5;
-        grid-column: 1 / 2;
-        width: 100%;
-        margin: 0;
-        padding: 0 10px;
-        margin-top: 30px;
-        clear: both;
-    }
-
-    .social-links {
-        grid-row: 5 / 6;
-        grid-column: 1 / 2;
-        justify-content: center;
-        flex-direction: row;
-        gap: 15px;
-    }
-
-    .comments-section {
-        width: 100%;
-        margin-top: 20px;
-        height: auto;
-        max-height: 75vh;
-        min-height: 450px;
-        padding: 15px;
-    }
-
-    .comments-list {
-        max-height: 55vh;
-    }
-
-    .book-cover, .book-placeholder {
-        max-width: 200px;
-        margin: 0 auto;
-    }
-
-    .book-placeholder {
-        width: 200px;
-        height: 280px;
-    }
-
-}
-
-/* Tablet Devices (min-width: 768px) */
-@media (min-width: 768px) {
-    .nav_item {
-        width: 60px;
-        height: 40px;
-        line-height: 40px;
-        min-width: 100px;
-        font-size: 1rem;
-    }
-
-    nav {
-        height: 60px;
-    }
-
-    .flex_box {
-        height: 60px;
-        flex-wrap: wrap;
-        padding: 5px;
-    }
-}
-
-/* Desktop Devices (min-width: 1024px) */
-@media (min-width: 1024px) {
-    .nav_item {
-        width: 70px;
-        height: 50px;
-        line-height: 50px;
-        font-size: 1rem;
-    }
-
-    nav {
-        height: 80px;
-    }
-
-    .flex_box {
-        height: 80px;
-    }
-
-    .book-main-section {
-        grid-template-columns: 250px 1fr 1fr;
-    }
-
-    .book-cover {
-        width: 100%;
-        max-width: 200px;
-        height: auto;
-    }
-
-    .book-placeholder {
-        width: 200px;
-        height: 280px;
-    }
-
-    .book-detail-container {
-        max-height: 450px;
-    }
-
-    .book-blurb-frame {
-        max-height: 400px;
-    }
-
-    .book-blurb-text {
-        max-height: 320px;
-    }
-
-    .content {
-        flex: 1;
-    }
-
-    .comments-section {
-        width: 250px;
-        max-height: 85vh;
-        min-height: 600px;
-    }
-
-    .comments-list {
-        max-height: 65vh;
-    }
-}
-
-/* Large Desktop (max-width: 1200px) */
-@media (max-width: 1200px) {
-    .nav_item {
-        width: 100px;
-        height: 50px;
-        line-height: 50px;
-        font-size: 1rem;
-    }
-
-    .book-detail-container {
-        grid-template-columns: 1fr 280px;
-        max-width: 100%;
-        margin: 0 auto;
-        transition: transform 0.3s ease;
-    }
-
-    .comments-section {
-        width: 280px;
-    }
-}
-
-/* Medium-Large Desktop (1201px-1440px */
-@media (min-width: 1201px) and (max-width: 1440px) {
-    .book-detail-container {
-        grid-template-columns: 1fr 320px;
-        max-width: 1200px;
-        gap: 30px;
-        transition: transform 0.3s ease;
-        margin: 0 auto;
-    }
-
-    .book-main-section {
-        grid-template-columns: 280px 1fr 1fr;
-        gap: 22px;
-        transition: transform 0.3s ease;
-    }
-
-    .comments-section {
-        width: 320px;
-        padding: 20px;
-        transition: transform 0.3s ease;
-    }
-
-    .book-cover, .book-placeholder {
-        max-width: 280px;
-    }
-
-    .book-placeholder {}
-}
-
-/* Extra Large Desktop (min-width: 1441px and max-width: 1919px) */
-@media (min-width: 1441px) and (max-width: 1919px) {
-    .nav_item {
-        width: 110px;
-        height: 65px;
-        line-height: 65px;
-        font-size: 1.05rem;
-        margin: 10px;
-    }
-
-    nav {
-        height: 105px;
-    }
-
-    .flex_box {
-        height: 105px;
-        padding: 10px;
-    }
-
-    .content {
-        width: 90%;
-        max-width: 1600px;
-        margin-top: 105px;
-        padding: 0 20px;
-        flex: 1;
-    }
-
-    .comments-section {
-        width: 380px;
-        padding: 22px;
-        max-height: 85vh;
-        min-height: 650px;
-        transition: transform 0.3s ease;
-    }
-
-    .comments-list {
-        max-height: 65vh;
-    }
-
-    .book-detail-container {
-        grid-template-columns: 1fr 380px;
-        gap: 35px;
-        max-width: 1800px;
-        padding: 20px;
-        transition: transform 0.3s ease;
-    }
-
-    .book-main-section {
-        grid-template-columns: 320px 1fr 1fr;
-        gap: 25px;
-        transition: transform 0.3s ease;
-    }
-
-    .book-cover {
-        max-width: 320px;
-    }
-
-    .book-placeholder {
-        width: 320px;
-        height: 448px;
-    }
-
-    .book-detail-container {
-        max-height: 520px;
-    }
-
-    .book-blurb-frame {
-        max-height: 480px;
-        padding: 22px;
-    }
-
-    .book-blurb-text {
-        max-height: 380px;
-        padding-right: 15px;
-    }
-
-    .book-title {
-        font-size: 2.4rem;
-    }
-
-    .book-author {
-        font-size: 1.5rem;
-    }
-
-    .comments-section {
-        width: 380px;
-        padding: 22px;
-        height: 80vh;
-        max-height: 80vh;
-        transition: transform 0.3s ease;
-    }
-
-    .book-blurb-frame, .author-bio-frame {
-        padding: 22px;
-    }
-}
-
-/* Ultra Large Desktop (min-width: 1920px and max-width: 2559px) */
-@media (min-width: 1920px) and (max-width: 2559px) {
-    .nav_item {
-        width: 120px;
-        height: 70px;
-        line-height: 70px;
-        font-size: 1.1rem;
-        margin: 12px;
-    }
-
-    nav {
-        height: 115px;
-    }
-
-    .flex_box {
-        height: 115px;
-        padding: 12px;
-    }
-
-    .content {
-        width: 85%;
-        max-width: 1800px;
-        margin-top: 115px;
-        padding: 0 25px;
-        flex: 1;
-    }
-
-    .book-detail-container {
-        grid-template-columns: 1fr 400px;
-        gap: 40px;
-        max-width: 2000px;
-        padding: 25px;
-        transition: transform 0.3s ease;
-    }
-
-    .book-main-section {
-        grid-template-columns: 350px 1fr 1fr;
-        gap: 30px;
-        transition: transform 0.3s ease;
-    }
-
-    .book-cover {
-        max-width: 350px;
-    }
-
-    .book-placeholder {
-        width: 350px;
-        height: 490px;
-    }
-
-    .book-blurb-container {
-        max-height: 580px;
-    }
-
-    .book-blurb-frame {
-        max-height: 540px;
-        padding: 25px;
-    }
-
-    .book-blurb-text {
-        max-height: 420px;
-        font-size: 1.1rem;
-        line-height: 1.2;
-        padding-right: 15px;
-    }
-
-    .book-title {
-        font-size: 2.6rem;
-    }
-
-    .book-author {
-        font-size: 1.6rem;
-    }
-
-    .book-publisher, .book-genre, .book-info, .book-rating {
-        font-size: 1.2rem;
-    }
-
-    .social-link {
-        width: 60px;
-        height: 60px;
-        font-size: 1.8rem;
-    }
-
-    .comments-section {
-        width: 400px;
-        padding: 25px;
-        height: 90vh;
-        max-height: 90vh;
-        transition: transform 0.3s ease;
-    }
-
-    .book-blurb-frame, .author-bio-frame {
-        padding: 20px;
-    }
-
-    .book-blurb-text, .author-bio-text {
-        font-size: 1.1rem;
-        line-height: 1.5;
-    }
-
-    footer {
-        height: 80px;
-        line-height: 80px;
-        font-size: 1.1rem;
-    }
-
-    .content {
-        margin-bottom: 40px;
-        flex: 1;
-    }
-
-    .comments-section {
-        width: 400px;
-        padding: 25px;
-        max-height: 82vh;
-        min-height: 630px;
-        transition: transform 0.3s ease;
-    }
-
-    .comments-list {
-        max-height: 65vh;
-    }
-}
-
-/* Ultra Wide Desktop (min-width: 2560px) */
-@media (min-width: 2560px) {
-    .nav_item {
-        width: 140px;
-        height: 100px;
-        line-height: 100px;
-        font-size: 1.2rem;
-        margin: 15px;
-    }
-
-    nav {
-        height: 130px;
-        padding: 15px;
-    }
-
-    html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    .content {
-        width: 85%;
-        max-width: 2200px;
-        margin: auto;
-        margin-top: 130px;
-        padding: 0 30px;
-        flex: 1;
-        margin-bottom: 40px;
-    }
-
-    footer {
-        width: 100%;
-        height: 90px;
-        background-color: #595959;
-        text-align: center;
-        line-height: 90px;
-        vertical-align: middle;
-        margin-top: auto;
-        flex-shrink: 0;
-        font-size: 1.2rem;
-    }
-
-    .book-detail-container {
-        grid-template-columns: 1fr 480px;
-        gap: 50px;
-        max-width: 2400px;
-        padding: 30px;
-        min-height: calc(100vh - 220px);
-        transition: transform 0.3s ease;
-    }
-
-    .book-main-section {
-        grid-template-columns: 400px 1fr 1fr;
-        gap: 40px;
-        min-height: 600px;
-        transition: transform 0.3s ease;
-    }
-
-    .book-cover {
-        max-width: 400px;
-    }
-
-    .book-placeholder {
-        width: 400px;
-        height: 560px;
-        font-size: 1.2rem;
-    }
-
-    .book-placeholder i {
-        font-size: 4rem;
-        margin-bottom: 15px;
-    }
-
-    .book-title {
-        font-size: 3rem;
-        margin-bottom: 25px;
-    }
-
-    .book-author {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    .book-publisher, .book-genre, .book-info, .book-rating {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-    }
-
-    .book-blurb-container {
-        max-height: 650px;
-    }
-
-    .book-blurb-frame {
-        max-height: 600px;
-        padding: 30px;
-        border-radius: 15px;
-        border-width: 3px;
-    }
-
-    .book-blurb-frame h4 {
-        font-size: 1.6rem;
-        margin-bottom: 20px;
-    }
-
-    .book-blurb-text {
-        max-height: 480px;
-        font-size: 1.2rem;
-        line-height: 1.8;
-        padding-right: 20px;
-    }
-
-    .author-bio-container {
-        position: relative;
-        grid-row: 2 / 3;
-        grid-column: 2 / 4;
-        width: 100%;
-        max-width: none;
-        padding: 0;
-        z-index: 1;
-        border-top: 1px solid #dee2e6;
-        padding-top: 20px;
-        max-height: 400px;
-    }
-
-    .author-bio-frame {
-        border: 2px solid #b3b3b3;
-        border-radius: 15px;
-        padding: 30px;
-        background-color: #f8f9fa;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        border-width: 3px;
-        max-height: 350px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .author-bio-frame h4 {
-        font-size: 1.6rem;
-        margin-bottom: 20px;
-    }
-
-    .author-bio-text {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        max-height: 200px;
-        flex: 1;
-        padding-right: 10px;
-        overflow-y: auto;
-    }
-
-    .social-link {
-        width: 70px;
-        height: 70px;
-        font-size: 2rem;
-    }
-
-    .author-photo, .author-photo-placeholder {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 20px;
-        flex-shrink: 0;
-    }
-
-    .author-photo-placeholder i {
-        font-size: 3rem;
-    }
-
-    .comments-section {
-        width: 480px;
-        padding: 30px;
-        max-height: 85vh;
-        min-height: 750px;
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease;
-    }
-
-    .comments-section h4 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        flex-shrink: 0;
-    }
-
-    .comments-list {
-        max-height: 70vh;
-        padding-right: 15px;
-        overflow-y: auto;
-        flex: 1;
-    }
-
-    .comment-item {
-        padding: 18px;
-        margin-bottom: 15px;
-        font-size: 1.1rem;
-    }
-
-    .comment-header {
-        font-size: 1rem;
-        margin-bottom: 10px;
-    }
-
-    .book-blurb-frame, .author-bio-frame {
-        padding: 30px;
-        border-radius: 15px;
-        border-width: 3px;
-    }
-
-    .book-blurb-frame h4, .author-bio-frame h4 {
-        font-size: 1.6rem;
-        margin-bottom: 20px;
-    }
-
-    .book-blurb-text, .author-bio-text {
-        font-size: 1.2rem;
-        line-height: 1.6;
-    }
-
-    .comment-input {
-        padding: 12px 18px;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-    }
-
-    .emoji {
-        font-size: 1.5rem;
-        padding: 8px;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 1.1rem;
-        border-radius: 8px;
-    }
-}
+/* Viewport-based utility classes */
+.vw-text-xs { font-size: 1.2vw; min-font-size: 0.7rem; max-font-size: 0.9rem; }
+.vw-text-sm { font-size: 1.4vw; min-font-size: 0.8rem; max-font-size: 1rem; }
+.vw-text-md { font-size: 1.6vw; min-font-size: 0.9rem; max-font-size: 1.1rem; }
+.vw-text-lg { font-size: 2vw; min-font-size: 1rem; max-font-size: 1.3rem; }
+.vw-text-xl { font-size: 2.5vw; min-font-size: 1.2rem; max-font-size: 1.6rem; }
+
+.vh-spacing-xs { margin: 0.5vh 0; }
+.vh-spacing-sm { margin: 1vh 0; }
+.vh-spacing-md { margin: 1.5vh 0; }
+.vh-spacing-lg { margin: 2vh 0; }
+
+.vw-spacing-xs { margin: 0 0.5vw; }
+.vw-spacing-sm { margin: 0 1vw; }
+.vw-spacing-md { margin: 0 1.5vw; }
+.vw-spacing-lg { margin: 0 2vw; }
